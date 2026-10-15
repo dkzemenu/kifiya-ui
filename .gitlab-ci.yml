@@ -1,0 +1,47 @@
+# D-009: this GitLab project has no runner yet, so pipelines would sit in
+# "pending" forever and block merges. Until one is available, no pipeline is
+# created. To turn CI on, add the project variable ENABLE_CI=true
+# (Settings → CI/CD → Variables); nothing else here needs to change.
+workflow:
+  rules:
+    - if: $ENABLE_CI == "true"
+
+default:
+  image: node:22-alpine
+  before_script:
+    - corepack enable
+    - pnpm install --frozen-lockfile
+  cache:
+    key:
+      files:
+        - pnpm-lock.yaml
+    paths:
+      - .pnpm-store/
+
+variables:
+  npm_config_store_dir: .pnpm-store
+
+stages:
+  - check
+  - publish
+
+check:
+  stage: check
+  script:
+    - pnpm format:check
+    - pnpm typecheck
+    - pnpm test
+    - pnpm verify
+
+# Publishes every package whose version is not yet in the registry, to this
+# project's GitLab package registry, when a v* tag is pushed. Auth is the job
+# token; no secret is stored in the repo.
+publish:
+  stage: publish
+  rules:
+    - if: $CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+/
+  script:
+    - pnpm build
+    - echo "@kifiya:registry=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/" >> .npmrc
+    - echo "${CI_API_V4_URL#https:}/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}" >> .npmrc
+    - pnpm -r publish --no-git-checks

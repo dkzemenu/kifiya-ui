@@ -1,0 +1,11 @@
+/*
+ * @kifiya/ui styles entry. Tailwind v4 does not scan node_modules, so this
+ * tells it where the kit's classes live. Import it after the tokens:
+ *
+ *   @import "tailwindcss";
+ *   @import "@kifiya/tokens/tailwind.css";
+ *   @import "@kifiya/ui/styles.css";
+ */
+@import "tw-animate-css";
+
+@source "./";

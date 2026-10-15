@@ -1,0 +1,4 @@
+/* Exactly what an app's global stylesheet does (README "Use the components"). */
+@import "tailwindcss";
+@import "@kifiya/tokens/tailwind.css";
+@import "../../../dist/styles.css";

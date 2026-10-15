@@ -1,0 +1,46 @@
+{
+  "name": "@kifiya/tokens",
+  "version": "0.1.0",
+  "description": "Kifiya design tokens: CSS variables, Tailwind v4 theme and themes as data.",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./variables.css": "./dist/variables.css",
+    "./tailwind.css": "./dist/tailwind.css",
+    "./tokens.json": "./dist/tokens.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "rm -rf dist && tsc -p tsconfig.build.json && tsx scripts/build-css.ts",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "verify": "pnpm build && tsx scripts/verify-tailwind.ts"
+  },
+  "peerDependencies": {
+    "tailwindcss": "^4.1.0"
+  },
+  "peerDependenciesMeta": {
+    "tailwindcss": {
+      "optional": true
+    }
+  },
+  "devDependencies": {
+    "@tailwindcss/node": "^4.1.12",
+    "tailwindcss": "^4.1.12",
+    "tsx": "^4.20.5",
+    "vitest": "^4.1.2"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

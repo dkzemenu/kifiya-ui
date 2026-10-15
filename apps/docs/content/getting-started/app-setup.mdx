@@ -1,0 +1,35 @@
+# App setup
+
+Wrap your app once. The kit imports no router and no theme library: you pass yours in.
+
+```tsx filename="app/providers.tsx"
+"use client";
+
+import { KifiyaUIProvider, Toaster, TooltipProvider } from "@kifiya/ui";
+import Link from "next/link";
+import { useTheme } from "next-themes";
+
+export function Providers({ children }: { children: React.ReactNode }) {
+  const { resolvedTheme } = useTheme();
+  return (
+    <KifiyaUIProvider linkComponent={Link}>
+      <TooltipProvider>
+        {children}
+        <Toaster theme={resolvedTheme === "dark" ? "dark" : "light"} />
+      </TooltipProvider>
+    </KifiyaUIProvider>
+  );
+}
+```
+
+- **`linkComponent`**: every component that navigates (`PortalButton` with `href`, `PortalSidebarNavItem`) renders through it. Without the provider the kit renders plain `<a>` elements.
+- **`TooltipProvider`**: needed once if you use tooltips.
+- **`Toaster`**: mount once, then call `toast.success(…)` / `toast.error(…)` anywhere.
+
+The `@kifiya/ui` bundle is marked `"use client"`, so Next.js server components can import it directly.
+
+## Example
+
+A stand-in router link, so you can see the provider at work:
+
+<Example name="provider/LinkComponent" />

@@ -1,0 +1,44 @@
+# Installation
+
+The packages are published to the GitLab package registry under the `@kifiya` scope.
+
+## 1. Point the scope at the registry
+
+In your app's `.npmrc` (once per app):
+
+```ini filename=".npmrc"
+@kifiya:registry=https://gitlab.kifiya.et/api/v4/projects/<PROJECT_ID>/packages/npm/
+//gitlab.kifiya.et/api/v4/projects/<PROJECT_ID>/packages/npm/:_authToken=${GITLAB_NPM_TOKEN}
+```
+
+`<PROJECT_ID>` is the kifiya-ui project's id. The token needs `read_package_registry` and comes from the environment; never commit it.
+
+## 2. Install
+
+```sh
+pnpm add @kifiya/tokens @kifiya/ui
+```
+
+Peer dependencies: React 19 and Tailwind CSS v4.
+
+## 3. Add the styles
+
+In your global stylesheet, after Tailwind:
+
+```css filename="app/globals.css"
+@import "tailwindcss";
+@import "@kifiya/tokens/tailwind.css";
+@import "@kifiya/ui/styles.css";
+```
+
+<Callout type="warning">
+  Don't skip the last line. Tailwind v4 does not scan `node_modules`, so without
+  `@kifiya/ui/styles.css` it never sees the kit's classes and every component
+  renders unstyled.
+</Callout>
+
+## 4. Load the fonts
+
+The kit doesn't bundle font files. Load Geist, Geist Mono and Inter Tight in your app (for example with `next/font`) and set `--font-geist-sans`, `--font-geist-mono` and `--font-inter-tight`. Without them the system font stack is used.
+
+Next: [App setup](/getting-started/app-setup).

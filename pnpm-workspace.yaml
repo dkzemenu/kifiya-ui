@@ -1,0 +1,10 @@
+packages:
+  - "packages/*"
+  - "apps/*"
+onlyBuiltDependencies:
+  - esbuild
+# Nextra 4.6.1 was built against zod 4.1; zod 4.4+ rejects its layout props
+# ("expected nonoptional ... at children"). Remove once Nextra supports newer zod.
+overrides:
+  "nextra>zod": 4.1.13
+  "nextra-theme-docs>zod": 4.1.13

@@ -1,0 +1,21 @@
+/*
+ * The docs site consumes the kit exactly as an app does (README "Use the
+ * components"). Nextra's own styles are the prefixed build, so the two
+ * Tailwind setups don't collide.
+ */
+/*
+ * Nextra's stylesheet is its own Tailwind build with layers named v4-base and
+ * v4-utilities. Whichever file the browser loads second ranks its layers
+ * higher, so without this one statement Nextra's reset (* { padding: 0 })
+ * outranks the kit's utilities. Fix the order once: both resets lowest, both
+ * utility sets highest.
+ */
+@layer properties, theme, v4-base, base, components, v4-utilities, utilities;
+
+@import "tailwindcss";
+@import "@kifiya/tokens/tailwind.css";
+@import "@kifiya/ui/styles.css";
+
+/* Example previews and the token gallery live in ./components. */
+@source "../components";
+@source "../examples";

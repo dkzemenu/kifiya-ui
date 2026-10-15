@@ -1,0 +1,19 @@
+# Protected paths — protect-paths.sh blocks Claude edits under these prefixes.
+# One prefix per line, matched from the repo root ('#' lines are ignored).
+# A nested path needs its own line: protecting auth/ does not protect src/auth/.
+#
+# Org baseline — directory entries that do not exist in this repo (payments/,
+# ledger/, migrations/, infra/, deploy/, auth/, authz/) were removed at
+# adoption: a UI kit has none of them.
+.env
+.gitlab-ci.yml
+.claude/
+CLAUDE.md
+PRODUCT.md
+protected-paths.txt
+#
+# Project — this repo's own money, identity and infrastructure paths, added at
+# adoption and by the team. Additions need lead review.
+#
+# Publish configuration: a change here changes what every consuming app installs.
+.npmrc
