@@ -1,0 +1,17 @@
+# Files where a literal colour is unavoidable, one entry per line.
+# Read by .claude/hooks/theme-guard.sh. Same format and spirit as
+# protected-paths.txt: the exception is in git, named, and reviewable — not a
+# flag someone sets and forgets.
+#
+# An entry matches an exact file, or a directory when it ends in "/". It is not
+# a bare prefix: "client/src/lib/avatar" does not cover "avatarGenerator2.ts".
+#
+# The bar for adding a line: the code emits an image or a document that the
+# class layer and CSS variables cannot reach — an SVG data URI, a canvas, a PDF
+# export, a chart library's own colour API. "It was quicker" is not on the list.
+#
+# Empty by default. Add lines as the repo earns them, e.g.
+# client/src/lib/avatarGenerator.ts
+
+# The token source: theme definitions are where literal colours belong (D-002).
+packages/tokens/src/themes/

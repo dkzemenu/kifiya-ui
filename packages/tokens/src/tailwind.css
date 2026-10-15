@@ -1,0 +1,218 @@
+/*
+ * @kifiya/tokens Tailwind v4 layer.
+ *
+ * Usage, in the app's global stylesheet:
+ *   @import "tailwindcss";
+ *   @import "@kifiya/tokens/tailwind.css";
+ *
+ * Exposes the tokens as utilities (bg-brand-primary, text-text-strong,
+ * bg-status-success-soft, rounded-card, shadow-card, ...) plus the k-* classes.
+ */
+@import "./variables.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--font-family-sans);
+  --font-mono: var(--font-family-mono);
+  --font-metric: var(--font-family-metric);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-primary-hover: var(--brand-primary-hover);
+  --color-brand-primary-soft: var(--brand-primary-soft);
+  --color-brand-primary-strong: var(--brand-primary-strong);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-secondary-hover: var(--brand-secondary-hover);
+  --color-brand-secondary-strong: var(--brand-secondary-strong);
+  --color-brand-logo-accent: var(--brand-logo-accent);
+
+  --color-surface-canvas: var(--surface-canvas);
+  --color-surface-app: var(--surface-app);
+  --color-surface-sidebar: var(--surface-sidebar);
+  --color-surface-card: var(--surface-card);
+  --color-surface-muted: var(--surface-muted);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-hover: var(--surface-hover);
+  --color-surface-neutral: var(--surface-neutral);
+
+  --color-border-soft: var(--border-soft);
+  --color-border-muted: var(--border-muted);
+  --color-border-strong: var(--border-strong);
+
+  --color-text-strong: var(--text-strong);
+  --color-text-heading: var(--text-heading);
+  --color-text-body: var(--text-body);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-muted: var(--text-muted);
+  --color-text-faint: var(--text-faint);
+  --color-text-placeholder: var(--text-placeholder);
+  --color-text-disabled: var(--text-disabled);
+  --color-text-inverse: var(--text-inverse);
+
+  --color-status-success: var(--status-success);
+  --color-status-success-strong: var(--status-success-strong);
+  --color-status-success-soft: var(--status-success-soft);
+  --color-status-warning: var(--status-warning);
+  --color-status-warning-soft: var(--status-warning-soft);
+  --color-status-warning-strong: var(--status-warning-strong);
+  --color-status-danger: var(--status-danger);
+  --color-status-danger-soft: var(--status-danger-soft);
+  --color-status-danger-strong: var(--status-danger-strong);
+  --color-status-danger-hover: var(--status-danger-hover);
+  --color-status-neutral: var(--status-neutral);
+  --color-status-neutral-soft: var(--status-neutral-soft);
+  --color-status-processing: var(--status-processing);
+  --color-status-processing-soft: var(--status-processing-soft);
+
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+
+  --color-stat-icon-bg: var(--stat-icon-bg);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* Radii and shadows share Tailwind's --radius-* / --shadow-* namespaces, so
+   they are utilities rather than @theme entries (which would self-reference). */
+@utility rounded-card {
+  border-radius: var(--radius-card);
+}
+@utility rounded-panel {
+  border-radius: var(--radius-panel);
+}
+@utility rounded-tile {
+  border-radius: var(--radius-tile);
+}
+@utility rounded-control {
+  border-radius: var(--radius-control);
+}
+@utility rounded-pill {
+  border-radius: var(--radius-pill);
+}
+@utility rounded-input {
+  border-radius: var(--radius-input);
+}
+@utility shadow-card {
+  box-shadow: var(--shadow-card);
+}
+@utility shadow-card-strong {
+  box-shadow: var(--shadow-card-strong);
+}
+@utility shadow-subtle {
+  box-shadow: var(--shadow-subtle);
+}
+@utility shadow-elevated {
+  box-shadow: var(--shadow-elevated);
+}
+@utility shadow-xs {
+  box-shadow: var(--shadow-xs);
+}
+@utility shadow-overlay {
+  box-shadow: var(--shadow-overlay);
+}
+@utility shadow-drawer {
+  box-shadow: var(--shadow-drawer);
+}
+@utility shadow-stat-icon {
+  box-shadow: var(--stat-icon-shadow);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer utilities {
+  .k-shell {
+    background:
+      radial-gradient(
+        circle at top left,
+        var(--page-shell-radial),
+        transparent 32%
+      ),
+      var(--page-shell-gradient);
+  }
+
+  .k-card {
+    border-color: var(--border-soft);
+    background-color: var(--surface-card);
+    box-shadow: var(--shadow-card);
+    border-radius: var(--radius-card);
+  }
+
+  .k-panel {
+    background-color: var(--surface-muted);
+    border-radius: var(--radius-panel);
+  }
+
+  .k-title {
+    color: var(--text-strong);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.2;
+  }
+
+  .k-subtitle {
+    color: var(--text-muted);
+    font-size: 15px;
+    line-height: 1.4;
+  }
+
+  .k-primary-button {
+    background-color: var(--brand-primary);
+    color: var(--text-inverse);
+  }
+
+  .k-primary-button:hover {
+    background-color: var(--brand-primary-hover);
+  }
+
+  .k-page-header {
+    background-color: var(--page-header-backdrop);
+    backdrop-filter: blur(14px);
+  }
+
+  .k-status-chip {
+    border-radius: var(--radius-pill);
+    border: 1px solid transparent;
+  }
+
+  .k-stat-metric-value {
+    font-family: var(--font-family-metric);
+    font-size: 24.94px;
+    font-weight: 700;
+    font-style: normal;
+    line-height: 100%;
+    letter-spacing: 0;
+    font-synthesis: none;
+  }
+}

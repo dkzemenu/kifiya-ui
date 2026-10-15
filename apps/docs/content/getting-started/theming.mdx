@@ -1,0 +1,51 @@
+# Theming and tokens
+
+All colours, radii and shadows come from `@kifiya/tokens`. Components never use literal colours, so a token change reaches every app at once.
+
+## Dark mode
+
+Add the `dark` class to `<html>` (or any ancestor). With `next-themes`, use `attribute="class"`. This site's theme switch does exactly that.
+
+## Themes
+
+`kifiya` is the default and applies without any attribute. Further themes (partner or white-label) are selected with `data-theme="<name>"` on an ancestor, and each has its own dark mode.
+
+## Using tokens
+
+As Tailwind utilities:
+
+```tsx
+<span className="rounded-pill bg-status-success-soft px-2 text-status-success-strong">
+  Active
+</span>
+```
+
+As CSS variables, with or without Tailwind:
+
+```css
+.my-card {
+  background: var(--surface-card);
+  border-radius: var(--radius-card);
+}
+```
+
+In code: `import { themes, tokenNames, cssVar } from "@kifiya/tokens"`. `@kifiya/tokens/tokens.json` has every theme as data, for tooling.
+
+## Utility names
+
+| Group    | Utilities                                                                                                        |
+| -------- | ---------------------------------------------------------------------------------------------------------------- |
+| Brand    | `bg-brand-primary`, `-hover`, `-soft`, `-strong`; `bg-brand-secondary`, `-hover`, `-strong`                      |
+| Surfaces | `bg-surface-canvas`, `-app`, `-sidebar`, `-card`, `-muted`, `-subtle`, `-hover`, `-neutral`                      |
+| Text     | `text-text-strong`, `-heading`, `-body`, `-subtle`, `-muted`, `-faint`, `-placeholder`, `-disabled`, `-inverse`  |
+| Borders  | `border-border-soft`, `-muted`, `-strong`                                                                        |
+| Status   | `status-success`, `-warning`, `-danger`, `-neutral`, `-processing`, each with `-soft`; `-strong` text tones      |
+| Radii    | `rounded-card`, `-panel`, `-tile`, `-control`, `-pill`, `-input`                                                 |
+| Shadows  | `shadow-xs`, `shadow-card`, `-card-strong`, `-subtle`, `-elevated`, `-overlay`, `-drawer`                        |
+| Classes  | `k-shell`, `k-card`, `k-panel`, `k-title`, `k-subtitle`, `k-page-header`, `k-status-chip`, `k-stat-metric-value` |
+
+## All colour tokens
+
+Values update when you switch the site's theme.
+
+<TokenGallery />

@@ -1,0 +1,37 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.pnpm-store/
+
+.DS_Store
+
+# Secrets and local config: never committed. Tokens for .mcp.json come from the
+# shell environment (e.g. GITLAB_TOKEN), not from a file in the repo.
+.env
+.env.*
+!.env.example
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.mobileprovision
+*.p8
+key.properties
+
+# The harness must be committable on every machine. A user-global excludes file
+# (core.excludesFile) often ignores AI config wholesale; a repo .gitignore
+# outranks it, so these negations keep the harness visible to git everywhere.
+!CLAUDE.md
+!.mcp.json
+!.claude/
+!.claude/**
+
+# Claude Code local state and personal preferences — kept below the negations:
+# within this file the last matching line wins, so these stay ignored.
+.claude/settings.local.json
+.claude/logs/
+CLAUDE.local.md

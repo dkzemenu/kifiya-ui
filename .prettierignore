@@ -1,0 +1,15 @@
+dist
+coverage
+pnpm-lock.yaml
+
+# Harness framework files are copied verbatim from golden-template; formatting
+# them would make every refresh a diff.
+CLAUDE.md
+.claude/
+scripts/check-claude-md.sh
+scripts/verify-guards.sh
+scripts/verify-theme-guard.sh
+.next
+out
+apps/docs/examples/registry.generated.tsx
+apps/docs/next-env.d.ts

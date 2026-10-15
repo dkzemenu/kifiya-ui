@@ -1,0 +1,45 @@
+# Overlays
+
+Everything that opens above the page. All of them close on Escape and return focus to the control that opened them.
+
+## Popover
+
+Floating content anchored to a trigger.
+
+<Example name="overlays/PopoverStory" />
+
+## Tooltip
+
+Needs a `TooltipProvider` above it, mounted once near the app root.
+
+<Example name="overlays/TooltipStory" />
+
+## DropdownMenu
+
+Items, checkbox items, radio groups and sub-menus.
+
+<Example name="overlays/DropdownMenuStory" />
+
+## Sheet
+
+The primitive side panel. `SheetContent` renders `SheetPortal` and `SheetOverlay` for you. For forms, use `PortalDrawer`.
+
+<Example name="overlays/SheetStory" />
+
+## PortalDrawer
+
+The standard side drawer for create and edit forms: title, optional icon, body and a sticky footer. Focus returns to the opener on close.
+
+<Example name="overlays/Drawer" />
+
+## PortalConfirmDialog
+
+Asks before a consequential action. `confirmVariant` sets the tone; `isLoading` and `error` cover the request in flight.
+
+<Example name="overlays/ConfirmDialog" />
+
+## Toaster
+
+Mount `<Toaster />` once, then call `toast` (re-exported from the kit).
+
+<Example name="overlays/Toasts" />

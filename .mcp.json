@@ -1,0 +1,21 @@
+{
+  "mcpServers": {
+    "gitlab": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@zereight/mcp-gitlab"],
+      "env": {
+        "GITLAB_API_URL": "https://gitlab.kifiya.et/api/v4",
+        "GITLAB_PERSONAL_ACCESS_TOKEN": "${GITLAB_TOKEN}",
+        "GITLAB_READ_ONLY_MODE": "false",
+        "USE_GITLAB_WIKI": "true",
+        "USE_MILESTONE": "true",
+        "USE_PIPELINE": "true"
+      }
+    },
+    "atlassian": {
+      "type": "http",
+      "url": "https://mcp.atlassian.com/v1/mcp"
+    }
+  }
+}

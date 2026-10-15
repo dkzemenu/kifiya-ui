@@ -1,0 +1,51 @@
+# Data table
+
+`PortalTable` pages on the server: it never loads a full list.
+
+## PortalTable — server-side paging
+
+The app fetches one page and passes it in with `pagination` and `onPaginationChange`; the table shows only those rows. Columns are typed (`text`, `chip`, `avatar`, `date`, `actions`, …).
+
+<Example name="table/ServerPaged" />
+
+## PortalTable — loading
+
+`isLoading` shows skeleton rows.
+
+<Example name="table/Loading" />
+
+## PortalTable — error
+
+`error` shows your message as an alert in place of the rows.
+
+<Example name="table/ErrorState" />
+
+## PortalTable — empty
+
+`placeholder` is shown when there are no rows.
+
+<Example name="table/Empty" />
+
+## PortalTableCard
+
+A table inside a titled card with a header action.
+
+<Example name="table/Card" />
+
+## PortalTablePagination
+
+The pagination bar on its own.
+
+<Example name="table/Pagination" />
+
+## PortalTablePlaceholder
+
+The empty and error body on its own.
+
+<Example name="table/Placeholder" />
+
+## PortalTableRowActions
+
+The row actions menu on its own. `PortalTable` renders rows with `PortalTableRowRenderer`.
+
+<Example name="table/RowActions" />
