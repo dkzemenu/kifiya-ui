@@ -1,0 +1,39 @@
+# Hooks
+
+`@kifiya/hooks`: small state hooks shared by the components and flows.
+
+```sh
+pnpm add @kifiya/hooks
+```
+
+## useDebouncedValue
+
+Returns the value once it has stopped changing for a moment, for search boxes.
+
+<Example name="hooks/DebouncedValue" />
+
+## usePaginationState
+
+Page and page size in the shape `PortalTable` takes, with `resetPage` for when a filter changes.
+
+<Example name="hooks/PaginationState" />
+
+## useDrawerState
+
+Open state plus the record being edited; `null` means create.
+
+<Example name="hooks/DrawerState" />
+
+## useApiMutation
+
+From `@kifiya/hooks/query`, a separate entry so apps without React Query never load it. Invalidates query keys on success and toasts the result.
+
+<Callout type="warning">
+  On failure it shows the message your `errorMessage` maps the error to, or your
+  `errorFallback`. It never shows the error's own text, which can be a backend's
+  internal message.
+</Callout>
+
+Needs `@tanstack/react-query` with a `QueryClientProvider`, and a mounted `<Toaster />` from `@kifiya/ui`.
+
+<Example name="hooks/ApiMutation" />

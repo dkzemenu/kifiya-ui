@@ -1,0 +1,55 @@
+# Flows
+
+`@kifiya/flows`: whole screens and screen frames. They take data and callbacks from your app and never call a server or read a token themselves.
+
+```sh
+pnpm add @kifiya/flows @kifiya/hooks
+```
+
+```css filename="app/globals.css"
+@import "@kifiya/flows/styles.css"; /* after @kifiya/ui/styles.css */
+```
+
+## Permissions
+
+Wrap the app in `PermissionsProvider` with the user's permissions from your identity service. Pass `undefined` while they load: guards then show their `loading` state, never their content. An empty list denies everything; nothing falls back to roles.
+
+```tsx
+<PermissionsProvider permissions={permissionsOrUndefined}>
+  {children}
+</PermissionsProvider>
+```
+
+`useCan("union:view")` returns `true` only once access is confirmed.
+
+<Example name="flows/Guard" />
+
+## App shell
+
+Top bar, a sidebar filtered by permissions, and the content area. Each navigation entry's `permission` also guards its page through `NavRouteGuard`, so the menu and the page can't disagree. Collapse the sidebar to icons, or narrow the preview to see the menu button.
+
+<Example name="flows/Shell" />
+
+## Sign-in
+
+You supply `onSubmit` and `errorMessage`. Blank fields are reported without calling `onSubmit`, and a failure shows your message and keeps the identifier.
+
+<Example name="flows/SignIn" />
+
+## Change password
+
+Your app supplies the password rules through `validatePassword`. The form also checks that the confirmation matches.
+
+<Example name="flows/ChangePassword" />
+
+## Auth layout
+
+The full-page frame around the sign-in and change-password cards.
+
+<Example name="flows/Layout" />
+
+## Filterable list page
+
+Search, filters and a server-paged table. It calls `onQueryChange` with the page to fetch: once typing pauses, and back on page 1 when the search or `filterKey` changes.
+
+<Example name="flows/ListPage" />

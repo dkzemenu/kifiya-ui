@@ -2,14 +2,14 @@
 
 Shared design tokens, React components, hooks and flows for Kifiya web apps, published as `@kifiya/*` packages to the GitLab package registry.
 
-| Package          | Status  | What it is                                                                     |
-| ---------------- | ------- | ------------------------------------------------------------------------------ |
-| `@kifiya/tokens` | 0.1.0   | Colours, surfaces, text, status, radii, shadows and fonts; light and dark mode |
-| `@kifiya/ui`     | 0.1.0   | Radix-based primitives and Kifiya composites (tables, drawers, stat cards, …)  |
-| `@kifiya/hooks`  | Phase 3 | `useDebouncedValue`, `usePaginationState`, `useDrawerState`, …                 |
-| `@kifiya/flows`  | Phase 3 | Sign-in, app shell, filterable list page, permission guard                     |
-| docs site        | 0.1.0   | Nextra site with live Preview/Code examples (`apps/docs`, `pnpm docs:dev`)     |
-| CLI, MCP         | Phase 4 | `kifiya-ui add <flow>`; an MCP server for assistants                           |
+| Package          | Status  | What it is                                                                                            |
+| ---------------- | ------- | ----------------------------------------------------------------------------------------------------- |
+| `@kifiya/tokens` | 0.1.0   | Colours, surfaces, text, status, radii, shadows and fonts; light and dark mode                        |
+| `@kifiya/ui`     | 0.1.0   | Radix-based primitives and Kifiya composites (tables, drawers, stat cards, …)                         |
+| `@kifiya/hooks`  | 0.1.0   | `useDebouncedValue`, `usePaginationState`, `useDrawerState`, `useApiMutation` (`@kifiya/hooks/query`) |
+| `@kifiya/flows`  | 0.1.0   | Permission guard, app shell, sign-in and change-password forms, filterable list page                  |
+| docs site        | 0.1.0   | Nextra site with live Preview/Code examples (`apps/docs`, `pnpm docs:dev`)                            |
+| CLI, MCP         | Phase 4 | `kifiya-ui add <flow>`; an MCP server for assistants                                                  |
 
 ## Install
 

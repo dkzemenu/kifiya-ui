@@ -178,6 +178,44 @@ For `DEFERRED` entries, **Options** is replaced by **Proposed PRODUCT.md diff** 
 - **Resolution:** _(human)_ — option A chosen by the user in session on 2026-10-15.
 - **Resolved:** _(date)_
 
+### D-010 — permission guard: what shows while permissions load
+
+- **Raised:** 2026-10-15 · **Status:** ASSUMED · **Blocking:** no
+- **Context:** Phase 3 (R-03). agent-frontend's route guard renders its children while the permission set is still loading and only redirects once it has settled (`route-permission-guard.tsx`). For a page that is acceptable; for a guarded button or section it means a user without the permission briefly sees it. AC-03.2 asks for a loading state instead.
+- **Options:**
+  - A) A loading state while permissions load: an optional `loading` prop, defaulting to nothing rendered. Children appear only once access is confirmed.
+  - B) Render the children while loading, as agent-frontend's route guard does.
+- **Recommendation:** A. Briefly showing a control a user cannot use, then removing it, is worse than briefly showing nothing. An app that wants a skeleton passes one as `loading`.
+- **Affects:** `@kifiya/flows` `PermissionGuard`, `AppShell` navigation
+- **Resolution:** _(human)_ — option A, a loading state while permissions load; chosen by the user in session on 2026-10-15.
+- **Resolved:** _(date)_
+
+### D-011 — sign-in and change-password: whose password rules
+
+- **Raised:** 2026-10-15 · **Status:** ASSUMED · **Blocking:** no
+- **Context:** Phase 3 (R-03, AC-03.8). agent-frontend's union-portal flows require at least 8 characters including a number (its AC-07.8); staff password rules are IAM's. Password policy is a product and security rule that differs between apps and identity providers, so the kit should not fix one.
+- **Options:**
+  - A) The app passes `validatePassword(password) => string | null` (the reason, or null). The kit enforces only that the confirmation matches.
+  - B) The kit ships agent-frontend's rule (8+ characters and a number) as the default and lets apps override it.
+- **Recommendation:** A. A default would quietly become the rule for apps that forget to set theirs. The docs show agent-frontend's rule as the example. **Security-adjacent:** flagged for Security-team review, not self-assessed.
+- **Affects:** `@kifiya/flows` `ChangePasswordForm`, `SignInForm`
+- **Resolution:** _(human)_ — option A, the app supplies the password rules; chosen by the user in session on 2026-10-15.
+- **Resolved:** _(date)_
+
+### D-012 — `useApiMutation`: React Query as a peer dependency, and no raw error text
+
+- **Raised:** 2026-10-15 · **Status:** ASSUMED · **Blocking:** yes (for `useApiMutation` only)
+- **Context:** Phase 3 (R-03, AC-03.11). agent-frontend's `useApiMutation` wraps React Query's `useMutation`, invalidates query keys on success, and toasts on success and error. Two things change in the kit:
+  1. **A new dependency.** `@tanstack/react-query` (already used by agent-frontend) becomes an **optional peer dependency** of `@kifiya/hooks`: apps that use the hook bring their own client, as the variant requires ("hooks take the server-state client from the app"). The other three hooks need nothing.
+  2. **Error copy.** The current hook toasts `err.message`, which can be the backend's raw text; agent-frontend's D-008 already replaced that with status-based copy on its own screens. The kit takes `errorMessage(error, variables) => string` from the app and, without it, shows the app's `errorFallback`, never the raw text.
+- **Options:**
+  - A) Both changes as described.
+  - B) Leave `useApiMutation` out of the kit; ship the three dependency-free hooks only.
+- **Recommendation:** A. It is the hook agent-frontend uses most, and the error-copy change is the safer behaviour.
+- **Affects:** `@kifiya/hooks` `package.json` and `useApiMutation`
+- **Resolution:** _(human)_ — option A, include `useApiMutation` with React Query as an optional peer dependency and no raw error text; chosen by the user in session on 2026-10-15.
+- **Resolved:** _(date)_
+
 ## Resolved
 
 _(entries move here when a human sets RESOLVED / REJECTED; never delete — this is the audit trail of product decisions)_

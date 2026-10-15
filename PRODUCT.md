@@ -40,6 +40,16 @@ Each requirement is a user story with numbered acceptance criteria. An acceptanc
   - **AC-02.6** — Given a status chip with a tone (success, warning, danger, neutral, processing), then it uses that tone's status tokens.
 - **R-03** — As a `frontend-developer`, I want shared hooks and flows (debounced value, pagination state, sign-in, app shell, filterable list page, permission guard), so that common screens behave the same in every app. _(D-001)_
   - **AC-03.1** — Given a permission guard with a permission set that lacks the required permission, then it renders its denied state and not its children.
+  - **AC-03.2** — Given a permission guard whose permissions are still loading, then it renders its loading state, neither its children nor its denied state. _(D-010)_
+  - **AC-03.3** — Given an empty permission set, then every guarded item and navigation entry is denied; nothing falls back to roles.
+  - **AC-03.4** — Given the app shell with a navigation list, then an entry whose required permission the user lacks is not shown, and the same declaration decides both the entry and its page guard.
+  - **AC-03.5** — Given the app shell, when the user collapses the sidebar, then only icons show and each entry's label stays available to screen readers and as a tooltip; on a narrow screen the navigation opens from a menu button instead.
+  - **AC-03.6** — Given the sign-in form, when it is submitted with a blank identifier or password, then each problem is shown under its own field and the app's submit handler is not called.
+  - **AC-03.7** — Given the sign-in form, when the app's submit handler fails, then the message the app supplies is shown and the entered identifier is kept.
+  - **AC-03.8** — Given the change-password form, when the new password fails the rules the app supplies or does not match its confirmation, then it is refused and the reason is shown. _(D-011)_
+  - **AC-03.9** — Given a filterable list page, when the user types in its search box, then the app is asked for page 1 with the new term once typing pauses, not once per keystroke.
+  - **AC-03.10** — Given a filterable list page showing a later page, when the search or a filter changes, then it returns to page 1.
+  - **AC-03.11** — Given the kit's mutation hook, when a mutation fails, then the user sees the message the app maps that error to, never the raw error text. _(D-012)_
 - **R-04** — As a `frontend-developer` or `designer`, I want a documentation site with live examples of every component, so that I can see what ships before using it. _(D-001)_
   - **AC-04.1** — Given any exported component, then the docs site has a page with a live example of it.
   - **AC-04.2** — Given any docs page, when I switch between light and dark, then every example on it switches too.

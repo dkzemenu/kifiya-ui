@@ -1,0 +1,5 @@
+/*
+ * @kifiya/flows styles entry: lets Tailwind v4 find the classes used inside
+ * the flows. Import it after @kifiya/ui/styles.css.
+ */
+@source "./";

@@ -13,7 +13,7 @@
     "verify": "pnpm -r verify",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build:packages": "pnpm --filter @kifiya/tokens build && pnpm --filter @kifiya/ui build",
+    "build:packages": "pnpm --filter @kifiya/tokens build && pnpm --filter @kifiya/ui build && pnpm --filter @kifiya/hooks build && pnpm --filter @kifiya/flows build",
     "docs:dev": "pnpm build:packages && pnpm --filter @kifiya/docs dev",
     "check": "pnpm format:check && pnpm typecheck && pnpm test && pnpm verify",
     "release": "pnpm check && pnpm -r --filter \"./packages/*\" publish --no-git-checks"
