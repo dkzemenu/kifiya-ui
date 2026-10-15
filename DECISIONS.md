@@ -163,6 +163,20 @@ For `DEFERRED` entries, **Options** is replaced by **Proposed PRODUCT.md diff** 
 - **Resolution:** _(human)_ — the switch to Nextra was chosen by the user in session on 2026-10-15.
 - **Resolved:** _(date)_
 
+### D-009 — no CI yet: checks and publishing run locally
+
+- **Raised:** 2026-10-15 · **Status:** ASSUMED · **Blocking:** no
+- **Context:** The first push produced no pipeline. agent-frontend builds on Azure Pipelines and has no `.gitlab-ci.yml`, so `gitlab.kifiya.et` most likely has no runner for this project; the user has no Azure permission for a new app. Offered: ask for a GitLab runner, register a personal runner, or run without CI for now. The user chose the last in session on 2026-10-15. `.gitlab-ci.yml` stays as it is: it needs no change once a runner exists.
+- **What this means until then:** nothing enforces the checks on a merge request, so `pnpm check` is run by hand before each push, and packages are published from a developer's machine with `pnpm release` and a personal token in the user's `~/.npmrc` (README "Release"). The docs site cannot be hosted on GitLab Pages without a runner.
+- **Options:**
+  - A) Local checks and publishing (as now).
+  - B) Ask the platform team for a shared or group GitLab runner.
+  - C) A project runner on a developer's machine.
+- **Recommendation:** A now, B soon: a check that depends on someone remembering to run it is not a gate, and published packages should come from a clean CI build rather than a laptop.
+- **Affects:** `package.json` (`check`, `release`), `README.md`, `.gitlab-ci.yml` (unchanged, dormant)
+- **Resolution:** _(human)_ — option A chosen by the user in session on 2026-10-15.
+- **Resolved:** _(date)_
+
 ## Resolved
 
 _(entries move here when a human sets RESOLVED / REJECTED; never delete — this is the audit trail of product decisions)_

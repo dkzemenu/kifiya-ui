@@ -14,7 +14,9 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "build:packages": "pnpm --filter @kifiya/tokens build && pnpm --filter @kifiya/ui build",
-    "docs:dev": "pnpm build:packages && pnpm --filter @kifiya/docs dev"
+    "docs:dev": "pnpm build:packages && pnpm --filter @kifiya/docs dev",
+    "check": "pnpm format:check && pnpm typecheck && pnpm test && pnpm verify",
+    "release": "pnpm check && pnpm -r --filter \"./packages/*\" publish --no-git-checks"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",
