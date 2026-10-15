@@ -149,7 +149,7 @@ pnpm check   # format, typecheck, tests, verify (incl. docs build)
 
 3. From `main`: `pnpm release`. It runs `pnpm check`, then publishes every package whose version is not in the registry yet. Tag the commit `vX.Y.Z` and push the tag.
 
-When a GitLab runner is available, the `.gitlab-ci.yml` already in the repo takes over both: it checks every push and publishes on `v*` tags.
+When a GitLab runner is available, set the project variable `ENABLE_CI=true` (Settings → CI/CD → Variables) and the `.gitlab-ci.yml` already in the repo takes over both: it checks every push and publishes on `v*` tags. Until then it creates no pipelines.
 
 ## Working with Claude
 

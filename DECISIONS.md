@@ -173,7 +173,8 @@ For `DEFERRED` entries, **Options** is replaced by **Proposed PRODUCT.md diff** 
   - B) Ask the platform team for a shared or group GitLab runner.
   - C) A project runner on a developer's machine.
 - **Recommendation:** A now, B soon: a check that depends on someone remembering to run it is not a gate, and published packages should come from a clean CI build rather than a laptop.
-- **Affects:** `package.json` (`check`, `release`), `README.md`, `.gitlab-ci.yml` (unchanged, dormant)
+- **Update 2026-10-15:** a pipeline was in fact created on every push and sat pending with no runner, blocking the merge request. `.gitlab-ci.yml` now starts with a `workflow` rule that creates no pipeline unless the project variable `ENABLE_CI` is `true` (human-applied patch). To turn CI on once a runner exists: add `ENABLE_CI=true` under Settings → CI/CD → Variables.
+- **Affects:** `package.json` (`check`, `release`), `README.md`, `.gitlab-ci.yml` (off unless `ENABLE_CI=true`)
 - **Resolution:** _(human)_ — option A chosen by the user in session on 2026-10-15.
 - **Resolved:** _(date)_
 

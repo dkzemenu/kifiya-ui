@@ -1,3 +1,11 @@
+# D-009: this GitLab project has no runner yet, so pipelines would sit in
+# "pending" forever and block merges. Until one is available, no pipeline is
+# created. To turn CI on, add the project variable ENABLE_CI=true
+# (Settings → CI/CD → Variables); nothing else here needs to change.
+workflow:
+  rules:
+    - if: $ENABLE_CI == "true"
+
 default:
   image: node:22-alpine
   before_script:
