@@ -1,0 +1,44 @@
+{
+  "name": "@kifiya/cli",
+  "version": "0.1.0",
+  "description": "kifiya-ui: set up the Kifiya UI kit in an app, scaffold screens, and check the setup.",
+  "type": "module",
+  "bin": {
+    "kifiya-ui": "./dist/bin.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "verify": "pnpm build && node scripts/verify-templates.mjs"
+  },
+  "devDependencies": {
+    "@kifiya/flows": "workspace:*",
+    "@kifiya/hooks": "workspace:*",
+    "@kifiya/ui": "workspace:*",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.1.12",
+    "lucide-react": "^0.542.0",
+    "react": "19.1.0",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vitest": "^4.1.2"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

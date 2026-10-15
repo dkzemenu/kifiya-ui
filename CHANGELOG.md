@@ -6,6 +6,9 @@ All notable changes to the `@kifiya/*` packages. Format: [Keep a Changelog](http
 
 ### Added
 
+- `@kifiya/cli` 0.1.0: `kifiya-ui init` (stylesheet imports in order, registry scope line, provider file; shows every change and writes only on confirmation; idempotent), `add <screen>` (sign-in, app-shell, list-page; never overwrites; templates type-checked against the kit on every build) and `doctor` (missing or misordered imports, missing provider, mismatched versions). No runtime dependencies; never installs packages or writes a credential (R-05, D-013).
+- `@kifiya/mcp` 0.1.0: a local stdio MCP server with `list_components`, `get_component` (props from the published type declarations, docs examples), `search_tokens` and `get_setup_guide`; unknown names get the closest real ones; data built into each release, no network (R-06, D-014, D-015).
+- Docs: CLI and MCP page.
 - `@kifiya/hooks` 0.1.0: `useDebouncedValue`, `usePaginationState`, `useDrawerState`, and `useApiMutation` on a separate `@kifiya/hooks/query` entry (React Query is an optional peer). `useApiMutation` shows the app's mapped message or fallback on failure, never the error's own text (R-03, AC-03.11, D-012).
 - `@kifiya/flows` 0.1.0: `PermissionsProvider`, `useCan`, `PermissionGuard` (a loading state while permissions load, D-010); `AppShell` with a permission-filtered sidebar, collapse, mobile menu and profile menu, and `NavRouteGuard` so one declaration guards both a menu entry and its page; `SignInForm`, `ChangePasswordForm` (the app supplies the password rules, D-011) and `AuthLayout`; `FilterableListPage` with debounced search and page reset on search or filter changes (R-03, AC-03.1 – AC-03.10).
 - Docs: Hooks and Flows pages with live examples.
