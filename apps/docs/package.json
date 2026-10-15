@@ -12,8 +12,11 @@
     "verify": "pnpm build"
   },
   "dependencies": {
+    "@kifiya/flows": "workspace:*",
+    "@kifiya/hooks": "workspace:*",
     "@kifiya/tokens": "workspace:*",
     "@kifiya/ui": "workspace:*",
+    "@tanstack/react-query": "^5.96.1",
     "lucide-react": "^0.542.0",
     "next": "15.5.28",
     "nextra": "4.6.1",

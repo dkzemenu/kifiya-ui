@@ -13,3 +13,4 @@ scripts/verify-theme-guard.sh
 out
 apps/docs/examples/registry.generated.tsx
 apps/docs/next-env.d.ts
+.next-dev

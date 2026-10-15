@@ -1,6 +1,9 @@
 import { readdirSync, readFileSync, statSync } from "node:fs";
 import { join } from "node:path";
 
+import * as flows from "@kifiya/flows";
+import * as hooks from "@kifiya/hooks";
+import * as hooksQuery from "@kifiya/hooks/query";
 import * as kit from "@kifiya/ui";
 import { describe, expect, it } from "vitest";
 
@@ -48,14 +51,22 @@ const shownThroughParent: Record<string, string> = {
   PortalTableRowRenderer: "PortalTable",
   TooltipProvider: "Tooltip",
   CalendarDayButton: "Calendar",
+  // The sidebar on its own is the AppShell's left column.
+  AppSidebar: "AppShell",
 };
 
-const componentExports = Object.entries(kit)
+const isComponent = ([name, value]: [string, unknown]) =>
+  /^[A-Z]/.test(name) &&
+  (typeof value === "function" ||
+    (typeof value === "object" && value !== null && "$$typeof" in value));
+
+const componentExports = [...Object.entries(kit), ...Object.entries(flows)]
+  .filter(isComponent)
+  .map(([name]) => name);
+
+const hookExports = [...Object.entries(hooks), ...Object.entries(hooksQuery)]
   .filter(
-    ([name, value]) =>
-      /^[A-Z]/.test(name) &&
-      (typeof value === "function" ||
-        (typeof value === "object" && value !== null && "$$typeof" in value)),
+    ([name, value]) => /^use[A-Z]/.test(name) && typeof value === "function",
   )
   .map(([name]) => name);
 
@@ -64,13 +75,22 @@ describe("R-04 documentation", () => {
     "AC-04.1 %s has a live example on a docs page",
     (name) => {
       const documentedAs = shownThroughParent[name] ?? name;
-      expect(exampleCode).toMatch(new RegExp(`<${documentedAs}[\\s>]`));
+      // `<Name>`, `<Name prop>` or `<Name<Type>` (a generic component).
+      expect(exampleCode).toMatch(new RegExp(`<${documentedAs}[\\s></]`));
       if (name in shownThroughParent) {
         expect(
           exampleCode,
           `the ${documentedAs} example should mention ${name}`,
         ).toContain(name);
       }
+    },
+  );
+
+  it.each(hookExports)(
+    "AC-04.1 %s has a live example on a docs page",
+    (name) => {
+      // `useX(` or `useX<Type>(`.
+      expect(exampleCode).toMatch(new RegExp(`\\b${name}[<(]`));
     },
   );
 

@@ -6,6 +6,10 @@ All notable changes to the `@kifiya/*` packages. Format: [Keep a Changelog](http
 
 ### Added
 
+- `@kifiya/hooks` 0.1.0: `useDebouncedValue`, `usePaginationState`, `useDrawerState`, and `useApiMutation` on a separate `@kifiya/hooks/query` entry (React Query is an optional peer). `useApiMutation` shows the app's mapped message or fallback on failure, never the error's own text (R-03, AC-03.11, D-012).
+- `@kifiya/flows` 0.1.0: `PermissionsProvider`, `useCan`, `PermissionGuard` (a loading state while permissions load, D-010); `AppShell` with a permission-filtered sidebar, collapse, mobile menu and profile menu, and `NavRouteGuard` so one declaration guards both a menu entry and its page; `SignInForm`, `ChangePasswordForm` (the app supplies the password rules, D-011) and `AuthLayout`; `FilterableListPage` with debounced search and page reset on search or filter changes (R-03, AC-03.1 – AC-03.10).
+- Docs: Hooks and Flows pages with live examples.
+
 - `@kifiya/ui` 0.1.0: the primitives and portal composites extracted from agent-frontend (`src/components/ui`, `src/components/portal`), restyled from tokens only (R-02).
 - Docs site (`apps/docs`, `pnpm docs:dev`): Nextra 4 on Next.js 15, statically exported, modelled on RapidKit's docs. Getting-started guides, seven component pages, and every component as a live example with Preview and Code tabs, a viewport toggle and a copy button; a live token gallery; follows the site's light/dark switch (R-04, D-008).
 - `@kifiya/ui`: `KifiyaUIProvider` with `linkComponent`, replacing the `next/link` import; `Toaster` takes `theme` instead of reading `next-themes` (AC-02.2).
