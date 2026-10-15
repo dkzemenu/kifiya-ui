@@ -54,6 +54,19 @@ Each requirement is a user story with numbered acceptance criteria. An acceptanc
   - **AC-04.1** — Given any exported component, then the docs site has a page with a live example of it.
   - **AC-04.2** — Given any docs page, when I switch between light and dark, then every example on it switches too.
 
+- **R-05** — As a `frontend-developer`, I want a command-line tool that sets the kit up in an app and scaffolds common screens, so that a new app starts correctly styled and wired. _(D-013)_
+  - **AC-05.1** — Given an app without the kit, when I run `kifiya-ui init`, then I see every change it would make (stylesheet imports, the provider, the registry scope line) and nothing is written until I confirm.
+  - **AC-05.2** — Given I confirm `init`, then the global stylesheet imports Tailwind, the tokens, the components' styles and the flows' styles in that order, and running `init` again changes nothing.
+  - **AC-05.3** — Given `kifiya-ui add <screen>` with a screen the kit offers (sign-in, app shell, list page), then a starter file using that flow is created at the path I give; an existing file is never overwritten.
+  - **AC-05.4** — Given `kifiya-ui doctor` in an app, then it reports each missing or misordered stylesheet import, a missing provider, and kit packages at mismatched versions, and exits with a failure status when it finds any.
+  - **AC-05.5** — Given any command, then no credential or token is written to any file.
+- **R-06** — As an `ai-assistant`, I want to look up the kit's components, their props, examples and tokens, so that I write code that uses the kit instead of inventing components. _(D-014)_
+  - **AC-06.1** — Given the MCP server, when asked for the component list, then every component `@kifiya/ui` and `@kifiya/flows` export is listed with a one-line description.
+  - **AC-06.2** — Given a component name, then it returns the component's props with their types, and the docs example code for it.
+  - **AC-06.3** — Given a token search, then it returns the matching token names with their light and dark values and the Tailwind utility to use.
+  - **AC-06.4** — Given a name the kit does not export, then it says so and suggests the closest names, rather than answering about something else.
+  - **AC-06.5** — Given any request, then the server answers from data built into its release and makes no network call.
+
 ### MUST NOT (hard limits — Claude will refuse and ask you to amend this file rather than route around them)
 
 - **R-90** — MUST NOT make network calls, read credentials or decode tokens. Data and permissions reach the kit as props.

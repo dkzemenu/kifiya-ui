@@ -216,6 +216,42 @@ For `DEFERRED` entries, **Options** is replaced by **Proposed PRODUCT.md diff** 
 - **Resolution:** _(human)_ — option A, include `useApiMutation` with React Query as an optional peer dependency and no raw error text; chosen by the user in session on 2026-10-15.
 - **Resolved:** _(date)_
 
+### D-013 — CLI: what `init` may change, and whether it installs packages
+
+- **Raised:** 2026-10-15 · **Status:** ASSUMED · **Blocking:** yes (for the CLI)
+- **Context:** Phase 4 (R-05). A CLI that edits an app's files and runs its package manager is acting on someone else's repo. AC-05.1 already says nothing is written before confirmation; what is still open is how far `init` goes.
+- **Options:**
+  - A) `init` edits files only: the global stylesheet's imports, a provider snippet file, and the registry **scope** line in `.npmrc` (never a token). It prints the `pnpm add` command instead of running it. Shows a diff first; writes on confirmation or `--yes`.
+  - B) A, and it also runs the app's package manager to install the packages.
+- **Recommendation:** A. Installing is one command the developer can see and run; running it for them means the CLI picks the package manager, touches the lockfile and needs registry credentials, all of which differ per app. No runtime dependencies: Node's own argument parser and file APIs are enough.
+- **Affects:** `packages/cli` (new)
+- **Resolution:** _(human)_ — option A, `init` edits files only and prints the install command; chosen by the user in session on 2026-10-15.
+- **Resolved:** _(date)_
+
+### D-014 — MCP server: how assistants run it and where its data comes from
+
+- **Raised:** 2026-10-15 · **Status:** ASSUMED · **Blocking:** yes (for the MCP server)
+- **Context:** Phase 4 (R-06). RapidKit ships an MCP server so coding assistants (Claude Code among them) can look up its components. Kifiya repos already configure MCP servers in `.mcp.json` (golden template).
+- **Options:**
+  - A) A local stdio server, `npx @kifiya/mcp`, added to a repo's `.mcp.json`. Its data (components, props from the published type declarations, docs examples, tokens) is generated when the package is built, so answers match that release and it needs no network (AC-06.5).
+  - B) A hosted server the whole company points at, always on the latest kit.
+- **Recommendation:** A. It needs no hosting or credentials, works offline, and answers for the kit version the repo actually installs; B would answer for a version the app may not use.
+- **Affects:** `packages/mcp` (new); `.mcp.json` in consuming repos (their change, not this repo's)
+- **Resolution:** _(human)_ — option A, a local stdio server per repo with data built into each release; chosen by the user in session on 2026-10-15.
+- **Resolved:** _(date)_
+
+### D-015 — new dependency: the MCP SDK
+
+- **Raised:** 2026-10-15 · **Status:** ASSUMED · **Blocking:** yes (for the MCP server)
+- **Context:** Phase 4 (R-06). An MCP server needs the protocol implementation. `@modelcontextprotocol/sdk` is the official SDK (v1.32.1, updated 2026-10-05, maintained by the protocol's authors). It needs `zod` (3.25+ or 4), which the workspace already has through Nextra. The CLI needs no dependency (D-013). Building the props data reads the published `.d.ts` files with `typescript`, already a dev dependency.
+- **Options:**
+  - A) Add `@modelcontextprotocol/sdk` and `zod` as dependencies of `@kifiya/mcp` only.
+  - B) Implement the stdio JSON-RPC protocol by hand, with no dependency.
+- **Recommendation:** A. The protocol has versioned handshakes and capability negotiation; a hand-rolled copy would drift from what assistants expect.
+- **Affects:** `packages/mcp/package.json`
+- **Resolution:** _(human)_ — option A, `@modelcontextprotocol/sdk` and `zod` in `@kifiya/mcp` only; chosen by the user in session on 2026-10-15.
+- **Resolved:** _(date)_
+
 ## Resolved
 
 _(entries move here when a human sets RESOLVED / REJECTED; never delete — this is the audit trail of product decisions)_

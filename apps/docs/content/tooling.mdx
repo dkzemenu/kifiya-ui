@@ -1,0 +1,47 @@
+# Tooling
+
+## The `kifiya-ui` command
+
+`@kifiya/cli` sets the kit up in an app, scaffolds screens, and checks the setup. Every change is shown first and written only when you confirm (or pass `--yes`). It never installs packages or writes a credential.
+
+```sh
+pnpm dlx @kifiya/cli init      # stylesheet imports, registry scope line, provider file
+pnpm dlx @kifiya/cli add list-page src/app/agents/agents-list.tsx
+pnpm dlx @kifiya/cli doctor    # fails if the setup is wrong; good in CI
+```
+
+| Command               | What it does                                                                                                                                                                                                                                                                                      |
+| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `init [--css <path>]` | Puts Tailwind, the tokens, the components' and the flows' styles in your global stylesheet in the right order; adds the `@kifiya` registry line to `.npmrc` (never a token); creates a provider file if the app has none. Prints the `pnpm add` command to run. Running it again changes nothing. |
+| `add <screen> [path]` | Creates a starter screen: `sign-in`, `app-shell` or `list-page`. Never overwrites a file.                                                                                                                                                                                                         |
+| `doctor`              | Reports missing or misordered stylesheet imports (the cause of unstyled components), a missing `KifiyaUIProvider`, and kit packages at different versions.                                                                                                                                        |
+
+<Callout type="info">
+  The starter screens are type-checked against the kit on every build of the
+  CLI, so what `add` creates compiles.
+</Callout>
+
+## MCP server for coding assistants
+
+`@kifiya/mcp` lets Claude Code and other MCP clients look up the kit while they write code, so they use real components instead of inventing them. Add it to your repo's `.mcp.json`:
+
+```json filename=".mcp.json"
+{
+  "mcpServers": {
+    "kifiya-ui": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@kifiya/mcp"]
+    }
+  }
+}
+```
+
+| Tool              | Returns                                                                                                               |
+| ----------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `list_components` | Every component in `@kifiya/ui` and `@kifiya/flows`, with a one-line description                                      |
+| `get_component`   | Import line, props with types, and the docs example code. An unknown name gets "not in the kit" and the closest names |
+| `search_tokens`   | Matching tokens with light and dark values, the CSS variable and the Tailwind utility                                 |
+| `get_setup_guide` | Installation, app setup and theming                                                                                   |
+
+The server runs locally and answers from data built into its release, so it describes the kit version your app installs and makes no network calls. Install the same version as your other `@kifiya` packages.

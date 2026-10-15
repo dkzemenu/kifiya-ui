@@ -4,4 +4,5 @@ export default {
   components: "Components",
   hooks: "Hooks",
   flows: "Flows",
+  tooling: "CLI and MCP",
 };
