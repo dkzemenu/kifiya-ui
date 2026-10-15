@@ -1,4 +1,5 @@
 examples/registry.generated.tsx
 .next/
+.next-dev/
 out/
 next-env.d.ts
