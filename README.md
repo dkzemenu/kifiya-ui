@@ -17,11 +17,11 @@ Shared design tokens, React components, hooks and flows for Kifiya web apps, pub
 Point the `@kifiya` scope at the GitLab registry once per app, in the app's `.npmrc`:
 
 ```ini
-@kifiya:registry=https://gitlab.kifiya.et/api/v4/projects/<PROJECT_ID>/packages/npm/
-//gitlab.kifiya.et/api/v4/projects/<PROJECT_ID>/packages/npm/:_authToken=${GITLAB_NPM_TOKEN}
+@kifiya:registry=https://gitlab.kifiya.et/api/v4/projects/1059/packages/npm/
+//gitlab.kifiya.et/api/v4/projects/1059/packages/npm/:_authToken=${GITLAB_NPM_TOKEN}
 ```
 
-`<PROJECT_ID>` is this repo's GitLab project id. The token is a personal or deploy token with `read_package_registry`, taken from the environment, never committed.
+The token is a personal or deploy token with `read_package_registry`, taken from the environment, never committed.
 
 ```sh
 pnpm add @kifiya/tokens
@@ -142,11 +142,11 @@ pnpm check   # format, typecheck, tests, verify (incl. docs build)
 2. Once, in your **user** `~/.npmrc` (never the repo's), with a personal access token that has the `api` scope:
 
    ```ini
-   @kifiya:registry=https://gitlab.kifiya.et/api/v4/projects/<PROJECT_ID>/packages/npm/
-   //gitlab.kifiya.et/api/v4/projects/<PROJECT_ID>/packages/npm/:_authToken=${GITLAB_NPM_TOKEN}
+   @kifiya:registry=https://gitlab.kifiya.et/api/v4/projects/1059/packages/npm/
+   //gitlab.kifiya.et/api/v4/projects/1059/packages/npm/:_authToken=${GITLAB_NPM_TOKEN}
    ```
 
-   `<PROJECT_ID>` is on the project's GitLab home page. Keep the token in your shell environment (`export GITLAB_NPM_TOKEN=...`), not in a file in the repo.
+   Keep the token in your shell environment (`export GITLAB_NPM_TOKEN=...`), not in a file in the repo.
 
 3. From `main`: `pnpm release`. It runs `pnpm check`, then publishes every package whose version is not in the registry yet. Tag the commit `vX.Y.Z` and push the tag.
 

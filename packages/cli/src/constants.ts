@@ -1,9 +1,6 @@
-/**
- * The npm registry for the `@kifiya` scope. GitLab accepts the URL-encoded
- * project path in place of the numeric project id.
- */
+/** The npm registry for the `@kifiya` scope: the kifiya-ui project (id 1059). */
 export const KIFIYA_REGISTRY =
-  "https://gitlab.kifiya.et/api/v4/projects/dilukefiya%2Fkifiya-ui/packages/npm/";
+  "https://gitlab.kifiya.et/api/v4/projects/1059/packages/npm/";
 
 export const SCOPE_LINE = `@kifiya:registry=${KIFIYA_REGISTRY}`;
 
