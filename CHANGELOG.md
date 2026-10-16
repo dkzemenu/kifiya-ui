@@ -4,6 +4,16 @@ All notable changes to the `@kifiya/*` packages. Format: [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-10-16
+
+### Added
+
+- `@kifiya/ui`: `Dialog` (with `DialogTrigger`, `DialogContent`, `DialogHeader`, `DialogFooter`, `DialogTitle`, `DialogDescription`, `DialogClose`; sizes `sm` – `xl`), `Textarea`, `Autocomplete` (debounced app-supplied search, keyboard selection, ignores out-of-order answers, never shows a failed search's error text), `Form` / `FormField` / `FormSubmit` with the `useForm` hook (errors under each field, first invalid field focused, disabled while submitting, app-mapped failure message), `Text`, `Icon`, `Image` (loading skeleton, fallback on error), `Logo` (full and mark) and `NavMenu` (current entry marked with `aria-current`) (D-016, D-018).
+- `@kifiya/ui/chart`: `Chart` for line, bar, area and donut charts on recharts, an optional peer dependency installed only by apps that chart (D-017).
+- `@kifiya/tokens`: `logo-ink` and `logo-accent` (D-019).
+- Docs: Text and media and Charts pages; Textarea, Autocomplete and Form on Forms; Dialog on Overlays; NavMenu on Page layout.
+- `@kifiya/mcp`: answers for the new components, the chart entry included.
+
 ## [0.1.0] - 2026-10-16
 
 ### Added

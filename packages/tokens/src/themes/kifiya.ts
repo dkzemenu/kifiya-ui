@@ -107,6 +107,10 @@ export const kifiyaTheme: ThemeDefinition = {
     "avatar-initials-bg": "#4f86f7",
     "avatar-amber": "#f7b267",
 
+    // The Kifiya logo: the wordmark and the dot over the "i".
+    "logo-ink": "#02404f",
+    "logo-accent": "#eb7d23",
+
     // Elevation
     "shadow-card": "0 18px 40px rgba(17, 24, 39, 0.04)",
     "shadow-card-strong": "0 18px 45px rgba(17, 24, 39, 0.06)",
@@ -229,6 +233,10 @@ export const kifiyaTheme: ThemeDefinition = {
     // agent-frontend sets no dark value for this one; the light value is kept.
     "avatar-initials-bg": "#4f86f7",
     "avatar-amber": "#f7b267",
+
+    // DECISION: D-019 — the dark teal wordmark is unreadable on dark surfaces.
+    "logo-ink": "var(--text-strong)",
+    "logo-accent": "#eb7d23",
 
     "shadow-card": "0 18px 40px rgba(0, 0, 0, 0.35)",
     "shadow-card-strong": "0 18px 45px rgba(0, 0, 0, 0.45)",

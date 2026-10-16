@@ -3,6 +3,7 @@
 import {
   ArrowRight,
   Building2,
+  ClipboardList,
   Download,
   LayoutDashboard,
   Settings,
@@ -10,6 +11,7 @@ import {
 } from "lucide-react";
 
 import {
+  NavMenu,
   PageHeader,
   PortalButton,
   PortalFilterSelect,
@@ -111,5 +113,20 @@ export function SidebarNav() {
         />
       </div>
     </div>
+  );
+}
+
+export function NavMenuExample() {
+  return (
+    <NavMenu
+      aria-label="Agent sections"
+      currentPath="/agents/pending"
+      items={[
+        { label: "Overview", href: "/agents/overview" },
+        { label: "Pending", href: "/agents/pending", count: 12 },
+        { label: "Approved", href: "/agents/approved" },
+        { label: "Reports", href: "/agents/reports", icon: ClipboardList },
+      ]}
+    />
   );
 }

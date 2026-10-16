@@ -23,9 +23,9 @@ async function call(name: string, args: Record<string, unknown> = {}) {
 }
 
 /** Component names a package exports, read from its published declarations. */
-function exportedComponents(pkg: "ui" | "flows"): string[] {
+function exportedComponents(pkg: "ui" | "flows", entry = "index"): string[] {
   const dts = readFileSync(
-    join(repo, "packages", pkg, "dist", "index.d.ts"),
+    join(repo, "packages", pkg, "dist", `${entry}.d.ts`),
     "utf8",
   );
   const exportList = [...dts.matchAll(/export \{([^}]*)\}/g)].flatMap((m) =>
@@ -76,6 +76,7 @@ describe("R-06 MCP server", () => {
     const { text } = await call("list_components");
     const expected = [
       ...exportedComponents("ui"),
+      ...exportedComponents("ui", "chart"),
       ...exportedComponents("flows"),
     ];
     expect(expected.length).toBeGreaterThan(90);

@@ -1,0 +1,31 @@
+# Text and media
+
+Type, icons, images and the Kifiya logo.
+
+## Text
+
+The kit's type scale. `variant` sets the look and a matching element (`title` is an `h1`, `heading` an `h2`); use `as` when the document outline needs a different one.
+
+<Example name="content/TextScale" />
+
+`tone` recolours text from the status and brand tokens; `weight` and `truncate` adjust it further.
+
+<Example name="content/TextTones" />
+
+## Icon
+
+Any [lucide](https://lucide.dev/icons) icon at the kit's sizes and tones. Give `label` when the icon carries meaning on its own; without it the icon is hidden from screen readers.
+
+<Example name="content/Icons" />
+
+## Image
+
+Shows a skeleton while loading and a fallback if the image fails. `aspectRatio` gives it a fixed frame. On Next.js you can still use `next/image` where you need its optimisation.
+
+<Example name="content/Images" />
+
+## Logo
+
+The Kifiya logo, coloured from the `logo-ink` and `logo-accent` tokens so it stays readable in dark mode. `variant="mark"` is the "k" alone. Size it with a height class; pass `title=""` when text beside it already says Kifiya.
+
+<Example name="content/Logos" />

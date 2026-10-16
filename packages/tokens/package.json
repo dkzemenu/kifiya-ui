@@ -1,6 +1,6 @@
 {
   "name": "@kifiya/tokens",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Kifiya design tokens: CSS variables, Tailwind v4 theme and themes as data.",
   "type": "module",
   "sideEffects": [

@@ -37,3 +37,23 @@ Stores the date as `yyyy-MM-dd`, like a native date input. `allowClear` adds a c
 The calendar behind `DatePicker`, for inline use.
 
 <Example name="forms/CalendarView" />
+
+## Textarea
+
+Multi-line text, styled like `Input`.
+
+<Example name="forms/TextareaExample" />
+
+## Autocomplete
+
+A search box that suggests options as the user types. Your `search` function does the fetching; the kit calls it once typing pauses (`debounceMs`, 300 by default), ignores answers that arrive out of order, and never shows a failed search's own error text. Arrow keys and Enter choose an option, Escape closes the list, and clearing the field calls `onChange(null)`.
+
+<Example name="forms/AutocompleteExample" />
+
+## Form
+
+`useForm` holds the values, field errors and submitting state; `Form`, `FormField` and `FormSubmit` render it. On submit every `validate` function runs: problems show under their fields and the first invalid field is focused, and `onSubmit` is not called. While `onSubmit` runs, the fields and the submit button are disabled. If it throws, the form shows the message `submitErrorMessage` returns (or a generic one), never the error's own text, and keeps what was typed.
+
+`FormField` passes `field.inputProps` for text inputs; for other controls use `field.value`, `field.setValue` and the `id` / `aria-*` props.
+
+<Example name="forms/FormExample" />

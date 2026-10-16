@@ -252,6 +252,56 @@ For `DEFERRED` entries, **Options** is replaced by **Proposed PRODUCT.md diff** 
 - **Resolution:** _(human)_ — option A, `@modelcontextprotocol/sdk` and `zod` in `@kifiya/mcp` only; chosen by the user in session on 2026-10-15.
 - **Resolved:** _(date)_
 
+### D-016 — ten more components in `@kifiya/ui`
+
+- **Raised:** 2026-10-16 · **Status:** DEFERRED · **Blocking:** yes (nothing below is built until the owner applies the wording)
+- **Context:** Request in session: widen the kit with the general-purpose components it still lacks. R-02 lists the components the kit ships, and these are not on it. Components the kit already has under its own names stay as they are, with no aliases (user's call in session).
+  - **New:** `Dialog` (a general modal; only the confirm dialog and the drawer exist today), `Textarea`, `Autocomplete` (async search, single selection, built on the existing Popover), `Chart` (D-017), `Form` / `FormField` / `FormSubmit` (D-018), `Icon` (a lucide icon at the kit's sizes and tones), `Image` (loading skeleton and a fallback when it fails), `Logo` (the Kifiya full-colour mark and the icon mark, from agent-frontend's `public/`), `NavMenu` (horizontal navigation with the current entry marked) and `Text` (headings, body, caption and label styles from the tokens).
+  - **Version:** these are additions only, so the release is 0.2.0.
+- **Proposed PRODUCT.md diff:** handed over as `../kifiya-ui-components-product.patch` (tested with `git apply --check`). It adds the components to R-02's list and adds AC-02.7 – AC-02.13.
+- **Affects:** `packages/ui`, `apps/docs`, `packages/mcp` (its data picks the new components up when it is built), `PRODUCT.md` R-02
+- **Resolution:** _(human)_
+- **Resolved:** _(date)_
+
+### D-017 — Chart on recharts, as an optional peer dependency
+
+- **Raised:** 2026-10-16 · **Status:** ASSUMED · **Blocking:** yes (for Chart)
+- **Context:** A chart with tooltips, axes and responsive sizing is a large thing to draw by hand; agent-frontend's one chart is hand-drawn SVG. `recharts` 3.10.1 (updated 2026-10-13) supports React 19 and pulls in about a dozen packages of its own (Redux Toolkit, immer, victory-vendor among them).
+- **Options:**
+  - A) Wrap recharts in a separate entry, `@kifiya/ui/chart`, with recharts as an optional peer dependency, so an app that never draws a chart installs nothing extra (AC-02.9). Line, bar, area and donut, coloured from the tokens.
+  - B) Hand-drawn SVG charts, no dependency.
+- **Recommendation:** A. B would mean writing and maintaining tooltips, axes and resizing ourselves.
+- **Affects:** `packages/ui/package.json`, a new `packages/ui/src/chart` entry
+- **Resolution:** _(human)_ — option A chosen by the user in session on 2026-10-16.
+- **Resolved:** _(date)_
+
+### D-018 — Form state from a small hook of our own, no form library
+
+- **Raised:** 2026-10-16 · **Status:** ASSUMED · **Blocking:** no
+- **Context:** `Form`, `FormField` and `FormSubmit` need something holding values, errors and the submitting state. agent-frontend's forms (the union onboarding form, the sign-in form) do this by hand with per-field validate functions.
+- **Options:**
+  - A) A `useForm` hook (not `useFormState`, which react-dom already exports) exported by `@kifiya/ui` beside the components (in `@kifiya/hooks` the two packages would depend on each other, since `@kifiya/hooks` already uses the toast from `@kifiya/ui`): initial values, a validate function per field, errors shown under each field, the first invalid field focused, submit disabled while submitting. The components read it through context. No new dependency.
+  - B) Build on react-hook-form as an optional peer.
+- **Recommendation:** A. It covers the forms the apps have today; B adds a dependency and an API every app must learn. Field arrays (like the union form's representative leads) stay plain arrays in the values.
+- **Affects:** `packages/ui`
+- **Resolution:** _(human)_ — option A chosen by the user in session on 2026-10-16.
+- **Resolved:** _(date)_
+
+### D-019 — the logo in dark mode, and what the small mark is
+
+- **Raised:** 2026-10-16 · **Status:** ASSUMED · **Blocking:** no
+- **Context:** `Logo` (D-016) is drawn from agent-frontend's `public/Kifiya_Full_Color.svg`: a dark teal wordmark (`#02404f`) with an orange dot (`#eb7d23`). Neither colour is a token, and the teal is nearly invisible on dark-mode surfaces. agent-frontend's `public/icon.svg` is not a logo (a "K" typed in a system font on an orange square), so it was not used. How the brand appears is the brand owner's call, and no brand guide was available.
+  - Two new tokens hold the colours: `logo-ink` and `logo-accent`.
+  - **Dark mode:** `logo-ink` becomes `var(--text-strong)` (near white); the orange dot is unchanged.
+  - **The mark** (`variant="mark"`) is the logo's own "k" shapes, in `logo-ink`, without the wordmark.
+- **Options:**
+  - A) As above.
+  - B) An official reversed (dark-background) logo and mark from the brand owner, replacing both.
+- **Recommendation:** A until B exists. Swapping in official artwork is a change to one file.
+- **Affects:** `packages/tokens/src/themes/kifiya.ts`, `packages/ui/src/components/logo.tsx`
+- **Resolution:** _(human)_
+- **Resolved:** _(date)_
+
 ## Resolved
 
 _(entries move here when a human sets RESOLVED / REJECTED; never delete — this is the audit trail of product decisions)_

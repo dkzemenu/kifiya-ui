@@ -5,6 +5,14 @@ import { useState } from "react";
 
 import {
   Button,
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -32,8 +40,8 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-  Toaster,
   toast,
+  Toaster,
   Tooltip,
   TooltipContent,
   TooltipTrigger,
@@ -197,5 +205,55 @@ export function Toasts() {
         </PortalButton>
       </div>
     </>
+  );
+}
+
+export function DialogExample() {
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <PortalButton variant="outline">Edit agent</PortalButton>
+      </DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Edit agent</DialogTitle>
+          <DialogDescription>
+            Changes are saved to the agent profile.
+          </DialogDescription>
+        </DialogHeader>
+        <Input aria-label="Agent name" defaultValue="Abebe Kebede" />
+        <DialogFooter>
+          <DialogClose asChild>
+            <PortalButton variant="outline">Cancel</PortalButton>
+          </DialogClose>
+          <DialogClose asChild>
+            <PortalButton>Save</PortalButton>
+          </DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export function DialogSizes() {
+  return (
+    <div className="flex flex-wrap gap-3">
+      {(["sm", "md", "lg", "xl"] as const).map((size) => (
+        <Dialog key={size}>
+          <DialogTrigger asChild>
+            <PortalButton variant="outline">Size {size}</PortalButton>
+          </DialogTrigger>
+          <DialogContent size={size}>
+            <DialogHeader>
+              <DialogTitle>Size {size}</DialogTitle>
+              <DialogDescription>
+                The maximum width of the dialog. It scrolls when content is
+                taller than the screen.
+              </DialogDescription>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      ))}
+    </div>
   );
 }

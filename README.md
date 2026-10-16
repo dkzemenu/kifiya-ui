@@ -4,13 +4,13 @@ Shared design tokens, React components, hooks and flows for Kifiya web apps, pub
 
 | Package          | Status | What it is                                                                                            |
 | ---------------- | ------ | ----------------------------------------------------------------------------------------------------- |
-| `@kifiya/tokens` | 0.1.0  | Colours, surfaces, text, status, radii, shadows and fonts; light and dark mode                        |
-| `@kifiya/ui`     | 0.1.0  | Radix-based primitives and Kifiya composites (tables, drawers, stat cards, …)                         |
-| `@kifiya/hooks`  | 0.1.0  | `useDebouncedValue`, `usePaginationState`, `useDrawerState`, `useApiMutation` (`@kifiya/hooks/query`) |
-| `@kifiya/flows`  | 0.1.0  | Permission guard, app shell, sign-in and change-password forms, filterable list page                  |
-| docs site        | 0.1.0  | Nextra site with live Preview/Code examples (`apps/docs`, `pnpm docs:dev`)                            |
-| `@kifiya/cli`    | 0.1.0  | `kifiya-ui init`, `add <screen>`, `doctor` (docs: CLI and MCP)                                        |
-| `@kifiya/mcp`    | 0.1.0  | MCP server: components, props, examples and tokens for coding assistants                              |
+| `@kifiya/tokens` | 0.2.0  | Colours, surfaces, text, status, radii, shadows and fonts; light and dark mode                        |
+| `@kifiya/ui`     | 0.2.0  | Radix-based primitives and Kifiya composites (tables, drawers, forms, dialogs, charts, …)             |
+| `@kifiya/hooks`  | 0.2.0  | `useDebouncedValue`, `usePaginationState`, `useDrawerState`, `useApiMutation` (`@kifiya/hooks/query`) |
+| `@kifiya/flows`  | 0.2.0  | Permission guard, app shell, sign-in and change-password forms, filterable list page                  |
+| docs site        | 0.2.0  | Nextra site with live Preview/Code examples (`apps/docs`, `pnpm docs:dev`)                            |
+| `@kifiya/cli`    | 0.2.0  | `kifiya-ui init`, `add <screen>`, `doctor` (docs: CLI and MCP)                                        |
+| `@kifiya/mcp`    | 0.2.0  | MCP server: components, props, examples and tokens for coding assistants                              |
 
 ## Install
 
@@ -75,6 +75,7 @@ Without Tailwind, import only the variables and use them in your own CSS:
 | Borders   | `border-border-soft`, `-muted`, `-strong`                                                                                            |
 | Status    | `status-success`, `-warning`, `-danger`, `-neutral`, `-processing`, each with `-soft` (and `status-success-strong`)                  |
 | Charts    | `chart-1` … `chart-4`                                                                                                                |
+| Logo      | `--logo-ink`, `--logo-accent` (used by `Logo`)                                                                                       |
 | Radii     | `rounded-card`, `-panel`, `-tile`, `-control`, `-pill`, `-input`; `rounded-sm` … `rounded-xl` from `--radius`                        |
 | Shadows   | `shadow-card`, `-card-strong`, `-subtle`, `-elevated`                                                                                |
 | Fonts     | `font-sans`, `font-mono`, `font-metric`                                                                                              |
@@ -109,7 +110,9 @@ import { KifiyaUIProvider, Toaster, TooltipProvider } from "@kifiya/ui";
 </KifiyaUIProvider>;
 ```
 
-Then compose screens from `PortalListPage`, `PortalTableCard` / `PortalTable`, `PortalDrawer`, `PortalConfirmDialog`, `PortalStatCard`, `PortalStatusChip`, the `PortalDetail*` layouts and the primitives (`Button`, `Input`, `Select`, …). The bundle is marked `"use client"`, so Next.js server components can import it directly.
+Then compose screens from `PortalListPage`, `PortalTableCard` / `PortalTable`, `PortalDrawer`, `Dialog`, `PortalConfirmDialog`, `Form` / `FormField`, `Autocomplete`, `PortalStatCard`, `PortalStatusChip`, `NavMenu`, the `PortalDetail*` layouts and the primitives (`Button`, `Input`, `Textarea`, `Select`, `Text`, `Icon`, `Image`, `Logo`, …). The bundle is marked `"use client"`, so Next.js server components can import it directly.
+
+**Charts** come from a separate entry, so apps without charts don't install recharts: `pnpm add recharts`, then `import { Chart } from "@kifiya/ui/chart";`.
 
 **Tables page on the server.** Pass `pagination` and `onPaginationChange` and the table shows only the rows you give it. Pass `isLoading`, `error` (your message) or `placeholder` for the loading, error and empty states.
 
