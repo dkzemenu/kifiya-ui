@@ -151,7 +151,15 @@ pnpm check   # format, typecheck, tests, verify (incl. docs build)
 
    Keep the token in your shell environment (`export GITLAB_NPM_TOKEN=...`), not in a file in the repo.
 
-3. From `main`: `pnpm release`. It runs `pnpm check`, then publishes every package whose version is not in the registry yet. Tag the commit `vX.Y.Z` and push the tag.
+3. After the MR is merged, from `main`:
+
+   ```sh
+   git switch main && git pull
+   read -s GITLAB_NPM_TOKEN && export GITLAB_NPM_TOKEN   # paste the token, press Enter
+   pnpm release            # or `pnpm release --dry-run` to try every step without publishing
+   ```
+
+   `pnpm release` refuses, before building anything, when the tree has uncommitted changes, you are not on `main`, local `main` differs from GitLab's (an unmerged MR), the packages are at different versions, the version is already tagged or published, or the token is not set. Then it runs `pnpm check`, publishes, and creates and pushes the `vX.Y.Z` tag itself, only after every package is published. Do not tag by hand.
 
 When a GitLab runner is available, set the project variable `ENABLE_CI=true` (Settings → CI/CD → Variables) and the `.gitlab-ci.yml` already in the repo takes over both: it checks every push and publishes on `v*` tags. Until then it creates no pipelines.
 
