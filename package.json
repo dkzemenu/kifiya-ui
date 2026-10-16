@@ -16,7 +16,7 @@
     "build:packages": "pnpm --filter @kifiya/tokens build && pnpm --filter @kifiya/ui build && pnpm --filter @kifiya/hooks build && pnpm --filter @kifiya/flows build && pnpm --filter @kifiya/cli build && pnpm --filter @kifiya/mcp build",
     "docs:dev": "pnpm build:packages && pnpm --filter @kifiya/docs dev",
     "check": "pnpm format:check && pnpm typecheck && pnpm test && pnpm verify",
-    "release": "pnpm check && pnpm -r --filter \"./packages/*\" publish --no-git-checks"
+    "release": "node scripts/release.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",

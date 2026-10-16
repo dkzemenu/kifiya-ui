@@ -4,6 +4,10 @@ All notable changes to the `@kifiya/*` packages. Format: [Keep a Changelog](http
 
 ## [Unreleased]
 
+### Changed
+
+- `pnpm release` checks before it publishes: a clean tree on `main` identical to GitLab's `main`, one version across the packages, not yet tagged or published, and `GITLAB_NPM_TOKEN` set. It creates and pushes the `vX.Y.Z` tag itself after a successful publish; `--dry-run` tries every step without publishing (D-009).
+
 ## [0.2.1] - 2026-10-16
 
 Fixes found by building a sample app on 0.2.0.
