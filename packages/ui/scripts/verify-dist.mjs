@@ -27,6 +27,22 @@ if (
   failures.push("dist/index.js imports a framework router");
 }
 
+// AC-02.9: only the chart entry may pull in recharts (an optional peer).
+const chartBundle = readFileSync(join(root, "dist/chart.js"), "utf8");
+if (!chartBundle.startsWith('"use client"')) {
+  failures.push('dist/chart.js does not start with "use client"');
+}
+if (!/from\s*["']recharts["']/.test(chartBundle)) {
+  failures.push("dist/chart.js bundles recharts instead of importing it");
+}
+for (const file of readdirSync(join(root, "dist")).filter(
+  (f) => f.endsWith(".js") && f !== "chart.js",
+)) {
+  if (/["']recharts["']/.test(readFileSync(join(root, "dist", file), "utf8"))) {
+    failures.push(`dist/${file} imports recharts; only dist/chart.js may`);
+  }
+}
+
 const outDir = mkdtempSync(join(tmpdir(), "kifiya-ui-consumer-"));
 try {
   await build({

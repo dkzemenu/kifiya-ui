@@ -1,6 +1,6 @@
 {
   "name": "@kifiya/cli",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "kifiya-ui: set up the Kifiya UI kit in an app, scaffold screens, and check the setup.",
   "type": "module",
   "bin": {

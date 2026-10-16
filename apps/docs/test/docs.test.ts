@@ -5,6 +5,7 @@ import * as flows from "@kifiya/flows";
 import * as hooks from "@kifiya/hooks";
 import * as hooksQuery from "@kifiya/hooks/query";
 import * as kit from "@kifiya/ui";
+import * as chart from "@kifiya/ui/chart";
 import { describe, expect, it } from "vitest";
 
 const root = join(import.meta.dirname, "..");
@@ -60,7 +61,11 @@ const isComponent = ([name, value]: [string, unknown]) =>
   (typeof value === "function" ||
     (typeof value === "object" && value !== null && "$$typeof" in value));
 
-const componentExports = [...Object.entries(kit), ...Object.entries(flows)]
+const componentExports = [
+  ...Object.entries(kit),
+  ...Object.entries(chart),
+  ...Object.entries(flows),
+]
   .filter(isComponent)
   .map(([name]) => name);
 

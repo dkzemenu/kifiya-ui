@@ -1,0 +1,41 @@
+# Charts
+
+Line, bar, area and donut charts on [recharts](https://recharts.org), coloured from the chart tokens.
+
+Charts have their own entry, so apps without charts don't install recharts:
+
+```sh
+pnpm add recharts
+```
+
+```tsx
+import { Chart } from "@kifiya/ui/chart";
+```
+
+Every chart needs a `label`: screen readers read it in place of the drawing.
+
+## Line
+
+<Example name="charts/LineChartExample" />
+
+## Bar
+
+`stacked` stacks the series.
+
+<Example name="charts/BarChartExample" />
+
+## Area
+
+A series takes the next chart colour unless you give it a `color`.
+
+<Example name="charts/AreaChartExample" />
+
+## Donut
+
+<Example name="charts/DonutChartExample" />
+
+## No data
+
+With no rows the chart shows `emptyState` instead of empty axes.
+
+<Example name="charts/EmptyChartExample" />

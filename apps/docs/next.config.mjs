@@ -11,6 +11,8 @@ export default function config(phase) {
   return withNextra({
     output: "export",
     basePath,
+    // Examples prefix their own public files (images) with it.
+    env: { NEXT_PUBLIC_DOCS_BASE_PATH: basePath ?? "" },
     images: { unoptimized: true },
     reactStrictMode: true,
     // The dev server gets its own folder, so a production build (`pnpm check`)

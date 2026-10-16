@@ -1,6 +1,7 @@
 /**
  * Builds dist/data.json, everything the MCP server answers from (D-014):
- *  - components: every component @kifiya/ui and @kifiya/flows export, with
+ *  - components: every component @kifiya/ui (and its chart entry) and
+ *    @kifiya/flows export, with
  *    props read from their published type declarations, a description, the
  *    docs examples that use them, and their docs page;
  *  - tokens: every token with its light and dark values and Tailwind utility;
@@ -83,6 +84,10 @@ const packages = [
     dts: join(repo, "packages", "ui", "dist", "index.d.ts"),
   },
   {
+    name: "@kifiya/ui/chart",
+    dts: join(repo, "packages", "ui", "dist", "chart.d.ts"),
+  },
+  {
     name: "@kifiya/flows",
     dts: join(repo, "packages", "flows", "dist", "index.d.ts"),
   },
@@ -106,6 +111,41 @@ const docText = (symbol) =>
 
 /** Short prop list: the kit's own props, not the hundreds inherited from HTML or Radix. */
 function propsOf(type) {
+  // Props that differ by variant (`type="donut"` vs a cartesian chart) are a
+  // union: list every member's props, joining their types, and mark a prop
+  // required only when every member requires it.
+  if (type.isUnion() && type.types.some((t) => t.getProperties().length)) {
+    const members = type.types.map((member) => propsOf(member));
+    const merged = new Map();
+    for (const { props } of members) {
+      for (const prop of props) {
+        const seen = merged.get(prop.name);
+        if (!seen)
+          merged.set(prop.name, {
+            ...prop,
+            types: new Set([prop.type]),
+            count: 1,
+          });
+        else {
+          seen.types.add(prop.type);
+          seen.required &&= prop.required;
+          seen.count++;
+        }
+      }
+    }
+    const props = [...merged.values()]
+      .map(({ types, count, ...prop }) => ({
+        ...prop,
+        type: [...types].join(" | "),
+        required: prop.required && count === members.length,
+      }))
+      .sort(
+        (a, b) =>
+          Number(b.required) - Number(a.required) ||
+          a.name.localeCompare(b.name),
+      );
+    return { props, inheritsHtml: members.some((m) => m.inheritsHtml) };
+  }
   const all = checker.getPropertiesOfType(type);
   const own = all.filter((p) =>
     p.declarations?.some((d) => kitFiles.has(d.getSourceFile().fileName)),
