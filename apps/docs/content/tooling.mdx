@@ -14,7 +14,7 @@ pnpm dlx @kifiya/cli doctor    # fails if the setup is wrong; good in CI
 | --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `init [--css <path>]` | Puts Tailwind, the tokens, the components' and the flows' styles in your global stylesheet in the right order; adds the `@kifiya` registry line to `.npmrc` (never a token); creates a provider file if the app has none. Prints the `pnpm add` command to run. Running it again changes nothing. |
 | `add <screen> [path]` | Creates a starter screen: `sign-in`, `app-shell` or `list-page`. Never overwrites a file.                                                                                                                                                                                                         |
-| `doctor`              | Reports missing or misordered stylesheet imports (the cause of unstyled components), a missing `KifiyaUIProvider`, and kit packages at different versions.                                                                                                                                        |
+| `doctor`              | Reports missing or misordered stylesheet imports (the cause of unstyled components), a missing `KifiyaUIProvider`, and kit packages at different versions. It also warns, without failing, when your stylesheet redefines kit tokens (such as a starter template's `--background`).               |
 
 <Callout type="info">
   The starter screens are type-checked against the kit on every build of the

@@ -4,6 +4,23 @@ All notable changes to the `@kifiya/*` packages. Format: [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [0.2.1] - 2026-10-16
+
+Fixes found by building a sample app on 0.2.0.
+
+### Fixed
+
+- `@kifiya/ui`: a popover, autocomplete list, select or menu opened inside a `Dialog` or `PortalConfirmDialog` showed behind it. Overlays (dialog, confirm dialog, drawer) now share one layer and everything that floats sits above them (AC-02.5).
+- `@kifiya/ui/chart`: value-axis labels such as "ETB 220k" wrapped onto two lines. The axis now sizes itself to its labels; `yAxisWidth` fixes it instead.
+- `@kifiya/ui`: detail rows (`PortalDetailSection`, `PortalDetailDefinitionRows`) were cramped inside a drawer, because their columns followed the window width. They now follow the width they are given (container queries). On a page the two-column grid starts at a section width of 42rem rather than a 768px window.
+- `@kifiya/ui`: a `PortalFilterSelect` without a `className` wrapped its label ("All statuses") onto two lines; select labels now stay on one line.
+
+### Added
+
+- `@kifiya/ui`: `NavMenu` items take `exact`, for an index entry (Overview at `/dashboard`) that should not stay current on its sub-pages.
+- `@kifiya/cli`: `doctor` warns, without failing, when the stylesheet redefines kit tokens, as create-next-app's starter CSS does.
+- Docs: where to put font variables (`<html>`), starter stylesheets that override the tokens, and the `401` npm gives when `GITLAB_NPM_TOKEN` is unset.
+
 ## [0.2.0] - 2026-10-16
 
 ### Added

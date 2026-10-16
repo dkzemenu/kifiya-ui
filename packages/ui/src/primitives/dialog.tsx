@@ -30,7 +30,7 @@ function DialogClose(
 }
 
 const dialogContentVariants = cva(
-  "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-[101] flex max-h-[min(90vh,calc(100vh-2rem))] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 overflow-y-auto rounded-2xl border border-(--border-soft) bg-(--surface-card) p-6 text-(--text-strong) shadow-[var(--shadow-overlay)] outline-none duration-200",
+  "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 fixed top-1/2 left-1/2 z-50 flex max-h-[min(90vh,calc(100vh-2rem))] w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col gap-4 overflow-y-auto rounded-2xl border border-(--border-soft) bg-(--surface-card) p-6 text-(--text-strong) shadow-[var(--shadow-overlay)] outline-none duration-200",
   {
     variants: {
       size: {
@@ -66,7 +66,7 @@ function DialogContent({
     <DialogPrimitive.Portal>
       <DialogPrimitive.Overlay
         data-slot="dialog-overlay"
-        className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-[100] bg-(--overlay)"
+        className="data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 fixed inset-0 z-50 bg-(--overlay)"
       />
       <DialogPrimitive.Content
         data-slot="dialog-content"

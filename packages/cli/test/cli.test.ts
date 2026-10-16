@@ -203,6 +203,33 @@ describe("R-05 kifiya-ui CLI", () => {
       expect(t.text()).toContain("out of order");
     });
 
+    it("warns, without failing, when the stylesheet redefines kit tokens", async () => {
+      const root = nextApp({
+        "node_modules/@kifiya/tokens/dist/tokens.json": JSON.stringify({
+          themes: [
+            {
+              base: { radius: "1rem" },
+              light: { background: "#fff", foreground: "#000" },
+            },
+          ],
+        }),
+      });
+      await run(["init"], io(root, true).io);
+      const css = readFileSync(join(root, "src/app/globals.css"), "utf8");
+      writeFileSync(
+        join(root, "src/app/globals.css"),
+        `${css}\n:root {\n  --background: #ffffff;\n  --foreground: #171717;\n  --my-own: 1px;\n}\n/* --radius: 0; */\n`,
+      );
+      const t = io(root, false);
+      expect(await run(["doctor"], t.io)).toBe(0);
+      expect(t.text()).toContain(
+        "redefines kit tokens: --background, --foreground",
+      );
+      expect(t.text()).not.toContain("--my-own");
+      expect(t.text()).not.toContain("--radius");
+      expect(t.text()).toContain("with the warning(s) above");
+    });
+
     it("passes an app that init has set up", async () => {
       const root = nextApp();
       await run(["init"], io(root, true).io);

@@ -28,6 +28,6 @@ Sidebar rows from the `--sidebar-*` tokens: active, badge count, disabled and co
 
 ## NavMenu
 
-Horizontal navigation for the top of a page or section. Pass `currentPath` and the entry whose `href` contains it is marked current (`aria-current="page"`); `active` overrides that per entry. Links render through your router via `KifiyaUIProvider`.
+Horizontal navigation for the top of a page or section. Pass `currentPath` and the entry whose `href` contains it is marked current (`aria-current="page"`); Mark an index entry `exact` (an Overview at `/dashboard` with siblings under `/dashboard/…`) so it is current only on its own path; `active` overrides the match per entry. Links render through your router via `KifiyaUIProvider`.
 
 <Example name="layout/NavMenuExample" />

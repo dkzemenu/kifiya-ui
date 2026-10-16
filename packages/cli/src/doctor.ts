@@ -2,14 +2,21 @@ import { STYLE_IMPORTS } from "./constants.js";
 import { readIfExists } from "./changes.js";
 import {
   installedKitVersions,
+  installedTokenNames,
   sourcesMatching,
   type Project,
 } from "./project.js";
-import { checkStylesheet, requiredImports } from "./stylesheet.js";
+import {
+  checkStylesheet,
+  requiredImports,
+  tokenOverrides,
+} from "./stylesheet.js";
 
 export interface Finding {
   problem: string;
   fix: string;
+  /** Reported, but does not fail `doctor`: it may be intentional. */
+  warning?: boolean;
 }
 
 /** Everything `doctor` finds wrong with the app's kit setup (AC-05.4). */
@@ -42,6 +49,17 @@ export function diagnose(project: Project): Finding[] {
               fix: "Order: tailwindcss, then @kifiya/tokens, @kifiya/ui, @kifiya/flows. Run `kifiya-ui init` to reorder.",
             },
       );
+    }
+
+    const overrides = tokenOverrides(css, installedTokenNames(project.root));
+    if (overrides.length) {
+      findings.push({
+        warning: true,
+        problem: `${project.stylesheet} redefines kit tokens: ${overrides
+          .map((name) => `--${name}`)
+          .join(", ")}`,
+        fix: "These replace the kit's light and dark values (create-next-app's starter CSS does this). Delete them unless you mean to change the theme.",
+      });
     }
   }
 

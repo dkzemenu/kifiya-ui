@@ -1,6 +1,6 @@
 {
   "name": "@kifiya/ui",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Kifiya React components: Radix-based primitives and portal composites, themed by @kifiya/tokens.",
   "type": "module",
   "sideEffects": [

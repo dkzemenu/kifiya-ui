@@ -34,9 +34,9 @@ export function PortalFilterSelect({
   onValueChange?: (value: string) => void;
   className?: string;
   /**
-   * Extra classes for the portalled dropdown. Needed when the select sits
-   * inside another portalled layer — `SelectContent` is `z-50`, so in a
-   * popover (`z-[60]`) the dropdown would open behind its own panel.
+   * Extra classes for the portalled dropdown. Floating layers share
+   * `z-[60]` and stack in the order they open, so a select inside a popover
+   * already opens above it.
    */
   contentClassName?: string;
   disabled?: boolean;
@@ -59,7 +59,7 @@ export function PortalFilterSelect({
         aria-label={ariaLabel ?? placeholder}
         aria-invalid={ariaInvalid || undefined}
         aria-describedby={ariaDescribedBy}
-        className={className ?? "min-w-[120px]"}
+        className={className ?? "w-auto min-w-[120px] shrink-0"}
         disabled={disabled}
       >
         <SelectValue placeholder={placeholder} />
