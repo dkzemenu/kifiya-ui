@@ -58,6 +58,27 @@ export function installedKitVersions(root: string): Record<string, string> {
   return versions;
 }
 
+/**
+ * Every token name the installed @kifiya/tokens defines (e.g. "background",
+ * "brand-primary"), from its tokens.json; empty when it is not installed.
+ */
+export function installedTokenNames(root: string): string[] {
+  const path = join(
+    root,
+    "node_modules",
+    "@kifiya",
+    "tokens",
+    "dist",
+    "tokens.json",
+  );
+  if (!existsSync(path)) return [];
+  const { themes } = JSON.parse(readFileSync(path, "utf8")) as {
+    themes: { base: Record<string, string>; light: Record<string, string> }[];
+  };
+  const theme = themes[0];
+  return theme ? [...Object.keys(theme.base), ...Object.keys(theme.light)] : [];
+}
+
 const SOURCE = /\.(tsx?|jsx?)$/;
 const SKIP = new Set([
   "node_modules",

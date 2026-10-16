@@ -63,6 +63,8 @@ export type CartesianChartProps = CommonProps & {
   showGrid?: boolean;
   /** Stacks bars or areas instead of drawing them side by side. */
   stacked?: boolean;
+  /** The value axis width in pixels; `"auto"` (the default) fits the longest label. */
+  yAxisWidth?: number | "auto";
 };
 
 export type DonutChartProps = CommonProps & {
@@ -179,7 +181,15 @@ function renderCartesian(
   showTooltip: boolean,
   format: Format,
 ) {
-  const { type, data, xKey, series, showGrid = true, stacked = false } = props;
+  const {
+    type,
+    data,
+    xKey,
+    series,
+    showGrid = true,
+    stacked = false,
+    yAxisWidth = "auto",
+  } = props;
   const axes = [
     showGrid ? (
       <CartesianGrid
@@ -202,7 +212,7 @@ function renderCartesian(
       tickLine={false}
       axisLine={false}
       tickFormatter={format}
-      width={48}
+      width={yAxisWidth}
     />,
     showTooltip ? (
       <Tooltip

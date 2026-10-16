@@ -69,3 +69,18 @@ export function fixStylesheet(css: string, required: StyleImport[]): string {
   rest.splice(tailwindAt + 1, 0, ...kitKeys.map((key) => STYLE_IMPORTS[key]));
   return rest.join("\n");
 }
+
+/**
+ * Kit tokens the stylesheet declares itself (e.g. create-next-app's
+ * `:root { --background: #ffffff }`). Declared after the kit's imports, they
+ * win over the kit's light and dark values.
+ */
+export function tokenOverrides(css: string, tokenNames: string[]): string[] {
+  const known = new Set(tokenNames);
+  const code = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  const found = new Set<string>();
+  for (const [, name] of code.matchAll(/(?:^|[\s;{])--([a-z0-9-]+)\s*:/g)) {
+    if (known.has(name!)) found.add(name!);
+  }
+  return [...found];
+}

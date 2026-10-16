@@ -122,7 +122,7 @@ export function NavMenuExample() {
       aria-label="Agent sections"
       currentPath="/agents/pending"
       items={[
-        { label: "Overview", href: "/agents/overview" },
+        { label: "Overview", href: "/agents", exact: true },
         { label: "Pending", href: "/agents/pending", count: 12 },
         { label: "Approved", href: "/agents/approved" },
         { label: "Reports", href: "/agents/reports", icon: ClipboardList },

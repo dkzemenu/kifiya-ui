@@ -302,6 +302,18 @@ For `DEFERRED` entries, **Options** is replaced by **Proposed PRODUCT.md diff** 
 - **Resolution:** _(human)_
 - **Resolved:** _(date)_
 
+### D-020 — React Aria for the harder inputs from 0.3
+
+- **Raised:** 2026-10-16 · **Status:** ASSUMED · **Blocking:** no (nothing is built on it yet)
+- **Context:** The research report "Modern UI kits for Kifiya" (2026-10-16) found that combobox, multi-select/tags, date range, number field, one-time code, file drop zone, stepper, tree and a command menu are standard in current kits, and that Radix covers none of them except Toast. Building them by hand would take months and get accessibility wrong in places. Two headless libraries fit the kit: Ark UI and React Aria Components (Adobe).
+- **Options:**
+  - A) React Aria Components: the strongest internationalisation (locale-aware number and date input, `@internationalized/date` with `EthiopicCalendar` and `EthiopicAmeteAlemCalendar`), adopted by shadcn as a primitive option, maintained by Adobe.
+  - B) Ark UI: closer in style to the Radix parts the kit already wraps.
+- **Recommendation:** A, chosen by the user in session on 2026-10-16. Radix stays for what it already does well (dialogs, menus, popovers); React Aria is added only for the inputs Radix lacks. The exact packages, versions and maintenance status are checked and listed when 0.3 starts, before anything is added.
+- **Affects:** `packages/ui/package.json` (0.3), the new input components
+- **Resolution:** _(human)_ — option A chosen by the user in session on 2026-10-16.
+- **Resolved:** _(date)_
+
 ## Resolved
 
 _(entries move here when a human sets RESOLVED / REJECTED; never delete — this is the audit trail of product decisions)_

@@ -9,6 +9,12 @@ export type NavMenuItem = {
   label: string;
   href: string;
   icon?: LucideIcon;
+  /**
+   * Match `currentPath` exactly instead of also matching pages under `href`.
+   * Use it for an index entry such as "Overview" at `/dashboard` whose
+   * siblings live at `/dashboard/…`.
+   */
+  exact?: boolean;
   /** Overrides the match against `currentPath`, e.g. for a section with several roots. */
   active?: boolean;
   /** A small count shown after the label, e.g. pending reviews. */
@@ -24,16 +30,19 @@ export type NavMenuProps = {
   className?: string;
 };
 
-/** Whether `path` is `href` or a page under it (`/agents` matches `/agents/42`). */
-function matches(path: string | undefined, href: string): boolean {
+/** Whether `path` is `href` or, unless `exact`, a page under it (`/agents` matches `/agents/42`). */
+function matches(
+  path: string | undefined,
+  href: string,
+  exact = false,
+): boolean {
   if (!path) return false;
   const clean = (value: string) =>
     value.replace(/[?#].*$/, "").replace(/\/+$/, "") || "/";
   const current = clean(path);
   const target = clean(href);
-  return (
-    current === target || (target !== "/" && current.startsWith(`${target}/`))
-  );
+  if (current === target) return true;
+  return !exact && target !== "/" && current.startsWith(`${target}/`);
 }
 
 /**
@@ -56,7 +65,8 @@ export function NavMenu({
     >
       <ul className="flex min-w-max items-center gap-1 border-b border-(--border-soft)">
         {items.map((item) => {
-          const active = item.active ?? matches(currentPath, item.href);
+          const active =
+            item.active ?? matches(currentPath, item.href, item.exact);
           const Glyph = item.icon;
           return (
             <li key={item.href}>

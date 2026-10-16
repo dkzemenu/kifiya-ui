@@ -13,6 +13,8 @@ In your app's `.npmrc` (once per app):
 
 The token needs `read_package_registry` and comes from the environment; never commit it.
 
+If `GITLAB_NPM_TOKEN` is not set in the shell, npm still sends the (empty) token line and GitLab answers `401 Unauthorized`. Set the variable, or leave the second line out where the registry allows anonymous downloads.
+
 ## 2. Install
 
 ```sh

@@ -28,6 +28,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
 
 The `@kifiya/ui` bundle is marked `"use client"`, so Next.js server components can import it directly.
 
+## Fonts
+
+The tokens use `--font-geist-sans`, `--font-geist-mono` and `--font-inter-tight` when your app sets them (e.g. with `next/font`). Put those font classes on `<html>`, not `<body>`: the `--font-family-*` tokens are declared on `:root` and resolve the variables there, so variables set only on `<body>` are never seen and the fallback fonts show.
+
+```tsx filename="app/layout.tsx"
+<html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+  <body>{children}</body>
+</html>
+```
+
+## Starter stylesheets
+
+Starter templates (create-next-app among them) define their own `--background` / `--foreground` and a body font in `globals.css`. Declared after the kit's imports, they replace the kit's light and dark values. Delete them; `kifiya-ui doctor` warns when it finds any.
+
 ## Example
 
 A stand-in router link, so you can see the provider at work:

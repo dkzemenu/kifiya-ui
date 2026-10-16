@@ -84,7 +84,7 @@ export function PortalConfirmDialog({
         <Dialog.Overlay
           className={cn(
             overlayPosition,
-            "inset-0 z-[100] bg-[color-mix(in_srgb,var(--text-heading)_45%,transparent)] backdrop-blur-[3px]",
+            "inset-0 z-50 bg-[color-mix(in_srgb,var(--text-heading)_45%,transparent)] backdrop-blur-[3px]",
             "data-[state=open]:animate-in data-[state=closed]:animate-out fade-in-0 duration-200",
           )}
           onPointerDown={(event) => {
@@ -98,7 +98,7 @@ export function PortalConfirmDialog({
         <Dialog.Content
           className={cn(
             shellPosition,
-            "inset-0 z-[101] flex items-center justify-center p-4 sm:p-6",
+            "inset-0 z-50 flex items-center justify-center p-4 sm:p-6",
             "border-0 bg-transparent p-0 shadow-none outline-none",
             "pointer-events-none",
             "data-[state=open]:animate-in data-[state=closed]:animate-out fade-in-0 zoom-in-95 duration-200",

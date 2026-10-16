@@ -22,23 +22,29 @@ export function PortalDetailDefinitionRows({
   variant = "default",
   className,
 }: PortalDetailDefinitionRowsProps) {
+  // Columns follow the width the rows actually have (a container query), not
+  // the window: the same section reads well on a page and in a drawer.
   if (variant === "divided") {
     return (
-      <dl className={cn("min-w-0 divide-y divide-(--border-soft)", className)}>
-        {fields.map((field) => (
-          <div
-            key={field.label}
-            className="grid grid-cols-1 gap-1 py-4 first:pt-0 last:pb-0 sm:grid-cols-2 sm:items-center sm:gap-x-10"
-          >
-            <dt className="text-left text-sm text-(--text-muted)">
-              {field.label}
-            </dt>
-            <dd className="min-w-0 text-left text-sm font-semibold text-(--text-heading)">
-              {field.value}
-            </dd>
-          </div>
-        ))}
-      </dl>
+      <div className="@container min-w-0">
+        <dl
+          className={cn("min-w-0 divide-y divide-(--border-soft)", className)}
+        >
+          {fields.map((field) => (
+            <div
+              key={field.label}
+              className="grid grid-cols-1 gap-1 py-4 first:pt-0 last:pb-0 @md:grid-cols-2 @md:items-center @md:gap-x-10"
+            >
+              <dt className="text-left text-sm text-(--text-muted)">
+                {field.label}
+              </dt>
+              <dd className="min-w-0 text-left text-sm font-semibold text-(--text-heading)">
+                {field.value}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </div>
     );
   }
 
@@ -48,29 +54,31 @@ export function PortalDetailDefinitionRows({
    * Always `flex-row` so label and value stay on one line like the design (value may wrap).
    */
   const rowClassName =
-    "flex w-full min-w-0 flex-nowrap flex-row items-baseline gap-x-3 sm:gap-x-4";
+    "flex w-full min-w-0 flex-nowrap flex-row items-baseline gap-x-3 @md:gap-x-4";
 
   const dtClassName =
     labelAlign === "start"
-      ? "w-36 shrink-0 text-start text-xs leading-snug text-(--text-muted) sm:w-44"
-      : "w-32 max-w-[42%] shrink-0 text-end text-xs leading-snug text-(--text-muted) sm:w-40 sm:max-w-none";
+      ? "w-32 shrink-0 text-start text-xs leading-snug text-(--text-muted) @md:w-44"
+      : "w-32 max-w-[42%] shrink-0 text-end text-xs leading-snug text-(--text-muted) @md:w-40 @md:max-w-none";
 
   return (
-    <dl
-      className={
-        denseGrid
-          ? `grid grid-cols-1 gap-x-8 gap-y-3 md:grid-cols-2 ${className ?? ""}`.trim()
-          : `space-y-3 ${className ?? ""}`.trim()
-      }
-    >
-      {fields.map((field) => (
-        <div key={field.label} className={rowClassName}>
-          <dt className={dtClassName}>{field.label}</dt>
-          <dd className="min-w-0 flex-1 text-sm font-semibold leading-snug wrap-break-word text-(--text-heading)">
-            {field.value}
-          </dd>
-        </div>
-      ))}
-    </dl>
+    <div className="@container min-w-0">
+      <dl
+        className={
+          denseGrid
+            ? `grid grid-cols-1 gap-x-8 gap-y-3 @2xl:grid-cols-2 ${className ?? ""}`.trim()
+            : `space-y-3 ${className ?? ""}`.trim()
+        }
+      >
+        {fields.map((field) => (
+          <div key={field.label} className={rowClassName}>
+            <dt className={dtClassName}>{field.label}</dt>
+            <dd className="min-w-0 flex-1 text-sm font-semibold leading-snug wrap-break-word text-(--text-heading)">
+              {field.value}
+            </dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   );
 }

@@ -34,7 +34,7 @@ function DropdownMenuContent({
         data-slot="dropdown-menu-content"
         sideOffset={sideOffset}
         className={cn(
-          "z-50 min-w-[8rem] overflow-hidden rounded-[5px] border border-[var(--border-soft)] bg-[var(--surface-card)] p-1 text-[var(--text-strong)] shadow-xl",
+          "z-[60] min-w-[8rem] overflow-hidden rounded-[5px] border border-[var(--border-soft)] bg-[var(--surface-card)] p-1 text-[var(--text-strong)] shadow-xl",
           className,
         )}
         {...props}
@@ -165,7 +165,7 @@ function DropdownMenuSubContent({
       <DropdownMenuPrimitive.SubContent
         data-slot="dropdown-menu-sub-content"
         className={cn(
-          "z-50 min-w-[8rem] overflow-hidden rounded-[5px] border border-[var(--border-soft)] bg-[var(--surface-card)] p-1 text-[var(--text-strong)] shadow-xl",
+          "z-[60] min-w-[8rem] overflow-hidden rounded-[5px] border border-[var(--border-soft)] bg-[var(--surface-card)] p-1 text-[var(--text-strong)] shadow-xl",
           className,
         )}
         {...props}

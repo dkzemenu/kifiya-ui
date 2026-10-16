@@ -103,12 +103,19 @@ export async function run(argv: string[], io: Io): Promise<number> {
       }
       case "doctor": {
         const findings = diagnose(project);
-        if (findings.length === 0) {
-          io.out("The kit is set up correctly.");
+        const problems = findings.filter((f) => !f.warning);
+        for (const f of findings) {
+          io.out(`${f.warning ? "!" : "✗"} ${f.problem}\n  ${f.fix}`);
+        }
+        if (problems.length === 0) {
+          io.out(
+            findings.length
+              ? "\nThe kit is set up correctly, with the warning(s) above."
+              : "The kit is set up correctly.",
+          );
           return 0;
         }
-        for (const f of findings) io.out(`✗ ${f.problem}\n  ${f.fix}`);
-        io.out(`\n${findings.length} problem(s) found.`);
+        io.out(`\n${problems.length} problem(s) found.`);
         return 1;
       }
       default:
