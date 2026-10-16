@@ -7,11 +7,11 @@ The packages are published to the GitLab package registry under the `@kifiya` sc
 In your app's `.npmrc` (once per app):
 
 ```ini filename=".npmrc"
-@kifiya:registry=https://gitlab.kifiya.et/api/v4/projects/<PROJECT_ID>/packages/npm/
-//gitlab.kifiya.et/api/v4/projects/<PROJECT_ID>/packages/npm/:_authToken=${GITLAB_NPM_TOKEN}
+@kifiya:registry=https://gitlab.kifiya.et/api/v4/projects/1059/packages/npm/
+//gitlab.kifiya.et/api/v4/projects/1059/packages/npm/:_authToken=${GITLAB_NPM_TOKEN}
 ```
 
-`<PROJECT_ID>` is the kifiya-ui project's id. The token needs `read_package_registry` and comes from the environment; never commit it.
+The token needs `read_package_registry` and comes from the environment; never commit it.
 
 ## 2. Install
 

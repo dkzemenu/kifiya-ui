@@ -4,6 +4,8 @@ All notable changes to the `@kifiya/*` packages. Format: [Keep a Changelog](http
 
 ## [Unreleased]
 
+## [0.1.0] - 2026-10-16
+
 ### Added
 
 - `@kifiya/cli` 0.1.0: `kifiya-ui init` (stylesheet imports in order, registry scope line, provider file; shows every change and writes only on confirmation; idempotent), `add <screen>` (sign-in, app-shell, list-page; never overwrites; templates type-checked against the kit on every build) and `doctor` (missing or misordered imports, missing provider, mismatched versions). No runtime dependencies; never installs packages or writes a credential (R-05, D-013).
