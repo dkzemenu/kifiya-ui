@@ -57,3 +57,39 @@ A search box that suggests options as the user types. Your `search` function doe
 `FormField` passes `field.inputProps` for text inputs; for other controls use `field.value`, `field.setValue` and the `id` / `aria-*` props.
 
 <Example name="forms/FormExample" />
+
+## MultiSelect
+
+Several options from a list. The chosen ones show as tags with a remove button; the app gets the option values in the order they were chosen.
+
+<Example name="forms/MultiSelectExample" />
+
+## DateRangePicker
+
+A start and an end date, typed or picked. An end before the start is refused with the reason shown and the app is not told. Values are always Gregorian `yyyy-MM-dd`; `calendar="ethiopic"` only changes what the user sees and types.
+
+<Example name="forms/DateRangeExample" />
+
+## NumberField and CurrencyField
+
+Numbers typed in the user's locale. `CurrencyField` takes and gives whole minor units (santim for ETB) with a currency code, so no fraction ever reaches the app; `currencyFractionDigits("ETB")` tells you the scale.
+
+<Example name="forms/NumberFields" />
+
+## OtpInput
+
+A one-time code in separate boxes: typing or pasting fills the next boxes, only digits are kept, and `onComplete` fires with the full code. The first box accepts the phone's code suggestion.
+
+<Example name="forms/OtpExample" />
+
+## FileDropzone
+
+Drop or browse for files. A file of the wrong type or size is refused with the reason and not kept; a new file replaces the kept one unless `multiple` is set.
+
+<Example name="forms/FileDropzoneExample" />
+
+## Stepper
+
+Progress through a multi-step flow. `current` is the step shown and `completed` how many are finished: finished steps can be revisited, and a step opens only once every step before it is finished.
+
+<Example name="forms/StepperExample" />

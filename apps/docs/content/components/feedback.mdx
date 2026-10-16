@@ -1,0 +1,27 @@
+# Feedback and states
+
+Empty sections, messages that stay on the page, and the error summary.
+
+Kifiya screens use three levels of message:
+
+- **Inline**, under a field: what is wrong with that field (`FormField`).
+- **Banner**, on the page or section: something that stays until it is fixed or dismissed, such as a failed load or a read-only notice.
+- **Toast**: a passing confirmation, such as "Agent suspended". Never the only place an error is shown.
+
+## EmptyState
+
+Say what is missing and what to do about it.
+
+<Example name="feedback/EmptyStates" />
+
+## Banner
+
+`danger` is announced at once; the other tones politely. The copy is the app's, never an error's own text.
+
+<Example name="feedback/Banners" />
+
+## Error summary
+
+When a submit finds three or more problems, `Form` lists them above the fields, each linked to its field, and moves focus to the list. With fewer, it focuses the first invalid field. Fixed problems drop off the list as you type. Submit this form empty to see it.
+
+<Example name="feedback/ErrorSummaryExample" />

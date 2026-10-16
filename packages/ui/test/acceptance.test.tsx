@@ -55,8 +55,14 @@ describe("R-02 components", () => {
         [...code.matchAll(/\[--([a-z0-9-]+):/g)].map((m) => m[1]),
       );
       for (const [, name] of code.matchAll(/\(--([a-z0-9-]+)\)/g)) {
-        // Radix sets --radix-* at runtime on its own elements.
-        if (local.has(name) || name!.startsWith("radix-")) continue;
+        // Radix sets --radix-* and React Aria sets --trigger-width at runtime
+        // on their own elements.
+        if (
+          local.has(name) ||
+          name!.startsWith("radix-") ||
+          name === "trigger-width"
+        )
+          continue;
         expect(
           known,
           `${where} uses --${name}, which @kifiya/tokens does not define`,

@@ -15,7 +15,19 @@ import {
 } from "react";
 
 import { cn } from "../lib/cn";
+import { Banner } from "./banner";
 import { PortalButton, type PortalButtonProps } from "./portal-button";
+
+/** Focuses a field's control: the element itself, or the first focusable inside it (a group). */
+function focusField(element: HTMLElement | null | undefined) {
+  if (!element) return;
+  const target = element.matches("input, textarea, select, button, [tabindex]")
+    ? element
+    : element.querySelector<HTMLElement>(
+        "input, textarea, select, button, [tabindex]",
+      );
+  (target ?? element).focus();
+}
 
 const FALLBACK_SUBMIT_ERROR = "Something went wrong. Please try again.";
 
@@ -156,11 +168,22 @@ export type FormProps<V> = {
   children: ReactNode;
   className?: string;
   "aria-label"?: string;
+  /**
+   * From this many invalid fields up, a submit shows a summary above the
+   * form listing each problem (linked to its field) and focuses it; with
+   * fewer, the first invalid field is focused. Default 3.
+   */
+  errorSummaryThreshold?: number;
+  /** The summary's title; gets the number of problems. */
+  errorSummaryTitle?: (count: number) => string;
 };
+
+type SummaryItem = { name: string; id: string; label: string };
 
 /**
  * A form bound to `useForm`. On an invalid submit it focuses the first
- * invalid field; while submitting its fields and buttons are disabled; a
+ * invalid field, or, with three or more, shows and focuses a summary linking
+ * to each; while submitting its fields and buttons are disabled; a
  * failed submit shows its message above the fields, keeping what was typed.
  */
 export function Form<V extends Record<string, unknown>>({
@@ -168,18 +191,62 @@ export function Form<V extends Record<string, unknown>>({
   children,
   className,
   "aria-label": ariaLabel,
+  errorSummaryThreshold = 3,
+  errorSummaryTitle = (count) => `${count} fields need attention`,
 }: FormProps<V>) {
   const idPrefix = useId();
   const ref = useRef<HTMLFormElement>(null);
+  const summaryRef = useRef<HTMLDivElement>(null);
+  const [summary, setSummary] = useState<SummaryItem[] | null>(null);
+  const errors = form.errors as Record<string, string | undefined>;
 
   useEffect(() => {
     if (form.invalidSubmits === 0) return;
-    const first = ref.current?.querySelector<HTMLElement>(
-      '[aria-invalid="true"]',
-    );
+    const root = ref.current;
+    if (!root) return;
+    // Invalid fields in the order they appear on the page.
+    const items = Object.keys(errors)
+      .filter((name) => errors[name])
+      .map((name) => {
+        const id = `${idPrefix}-${name}`;
+        const element = root.ownerDocument.getElementById(id);
+        const label = root.querySelector(`label[for="${CSS.escape(id)}"]`);
+        return {
+          name,
+          id,
+          element,
+          label: label?.firstChild?.textContent?.trim() || name,
+        };
+      })
+      .sort((a, b) =>
+        a.element && b.element
+          ? a.element.compareDocumentPosition(b.element) &
+            Node.DOCUMENT_POSITION_FOLLOWING
+            ? -1
+            : 1
+          : 0,
+      );
+    if (items.length >= errorSummaryThreshold) {
+      setSummary(items.map(({ name, id, label }) => ({ name, id, label })));
+      return;
+    }
+    setSummary(null);
+    const first =
+      items[0]?.element ??
+      root.querySelector<HTMLElement>('[aria-invalid="true"]');
     first?.scrollIntoView?.({ block: "center" });
-    first?.focus();
+    focusField(first);
+    // Runs once per failed submit; `errors` is read as it was then.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.invalidSubmits]);
+
+  useEffect(() => {
+    if (!summary) return;
+    summaryRef.current?.scrollIntoView?.({ block: "center" });
+    summaryRef.current?.focus();
+  }, [summary]);
+
+  const open = summary?.filter((item) => errors[item.name]) ?? [];
 
   return (
     <FormContext.Provider
@@ -200,6 +267,32 @@ export function Form<V extends Record<string, unknown>>({
           disabled={form.submitting}
           className="m-0 grid min-w-0 gap-4 border-0 p-0"
         >
+          {open.length ? (
+            <Banner
+              ref={summaryRef}
+              tone="danger"
+              title={errorSummaryTitle(open.length)}
+            >
+              <ul className="list-disc space-y-1 pl-5">
+                {open.map((item) => (
+                  <li key={item.name}>
+                    <a
+                      href={`#${item.id}`}
+                      className="underline underline-offset-2"
+                      onClick={(event) => {
+                        event.preventDefault();
+                        focusField(
+                          ref.current?.ownerDocument.getElementById(item.id),
+                        );
+                      }}
+                    >
+                      {item.label}: {errors[item.name]}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </Banner>
+          ) : null}
           {form.submitError ? (
             <div
               role="alert"
