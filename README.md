@@ -4,13 +4,13 @@ Shared design tokens, React components, hooks and flows for Kifiya web apps, pub
 
 | Package          | Status | What it is                                                                                            |
 | ---------------- | ------ | ----------------------------------------------------------------------------------------------------- |
-| `@kifiya/tokens` | 0.2.1  | Colours, surfaces, text, status, radii, shadows and fonts; light and dark mode                        |
-| `@kifiya/ui`     | 0.2.1  | Radix-based primitives and Kifiya composites (tables, drawers, forms, dialogs, charts, …)             |
-| `@kifiya/hooks`  | 0.2.1  | `useDebouncedValue`, `usePaginationState`, `useDrawerState`, `useApiMutation` (`@kifiya/hooks/query`) |
-| `@kifiya/flows`  | 0.2.1  | Permission guard, app shell, sign-in and change-password forms, filterable list page                  |
-| docs site        | 0.2.1  | Nextra site with live Preview/Code examples (`apps/docs`, `pnpm docs:dev`)                            |
-| `@kifiya/cli`    | 0.2.1  | `kifiya-ui init`, `add <screen>`, `doctor` (docs: CLI and MCP)                                        |
-| `@kifiya/mcp`    | 0.2.1  | MCP server: components, props, examples and tokens for coding assistants                              |
+| `@kifiya/tokens` | 0.3.0  | Colours, surfaces, text, status, radii, shadows and fonts; light and dark mode                        |
+| `@kifiya/ui`     | 0.3.0  | Radix-based primitives and Kifiya composites (tables, drawers, forms, dialogs, charts, …)             |
+| `@kifiya/hooks`  | 0.3.0  | `useDebouncedValue`, `usePaginationState`, `useDrawerState`, `useApiMutation` (`@kifiya/hooks/query`) |
+| `@kifiya/flows`  | 0.3.0  | Permission guard, app shell, sign-in and change-password forms, filterable list page                  |
+| docs site        | 0.3.0  | Nextra site with live Preview/Code examples (`apps/docs`, `pnpm docs:dev`)                            |
+| `@kifiya/cli`    | 0.3.0  | `kifiya-ui init`, `add <screen>`, `doctor` (docs: CLI and MCP)                                        |
+| `@kifiya/mcp`    | 0.3.0  | MCP server: components, props, examples and tokens for coding assistants                              |
 
 ## Install
 
@@ -110,7 +110,7 @@ import { KifiyaUIProvider, Toaster, TooltipProvider } from "@kifiya/ui";
 </KifiyaUIProvider>;
 ```
 
-Then compose screens from `PortalListPage`, `PortalTableCard` / `PortalTable`, `PortalDrawer`, `Dialog`, `PortalConfirmDialog`, `Form` / `FormField`, `Autocomplete`, `PortalStatCard`, `PortalStatusChip`, `NavMenu`, the `PortalDetail*` layouts and the primitives (`Button`, `Input`, `Textarea`, `Select`, `Text`, `Icon`, `Image`, `Logo`, …). The bundle is marked `"use client"`, so Next.js server components can import it directly.
+Then compose screens from `PortalListPage`, `PortalTableCard` / `PortalTable`, `PortalDrawer`, `Dialog`, `PortalConfirmDialog`, `Form` / `FormField`, `Autocomplete`, `MultiSelect`, `DateRangePicker`, `CurrencyField`, `OtpInput`, `FileDropzone`, `Stepper`, `EmptyState`, `Banner`, `PortalStatCard`, `PortalStatusChip`, `NavMenu`, the `PortalDetail*` layouts and the primitives (`Button`, `Input`, `Textarea`, `Select`, `Text`, `Icon`, `Image`, `Logo`, …). The bundle is marked `"use client"`, so Next.js server components can import it directly.
 
 **Charts** come from a separate entry, so apps without charts don't install recharts: `pnpm add recharts`, then `import { Chart } from "@kifiya/ui/chart";`.
 

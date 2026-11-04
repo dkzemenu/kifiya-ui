@@ -1,6 +1,6 @@
 {
   "name": "@kifiya/hooks",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Kifiya React hooks: debounced values, pagination and drawer state, and a React Query mutation helper.",
   "type": "module",
   "sideEffects": false,

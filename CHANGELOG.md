@@ -4,7 +4,24 @@ All notable changes to the `@kifiya/*` packages. Format: [Keep a Changelog](http
 
 ## [Unreleased]
 
-### Changed
+## [0.3.0] - 2026-10-16
+
+### Added
+
+- `@kifiya/ui`, on React Aria Components (D-020, D-022):
+  - `MultiSelect`: several options, each shown as a tag with a remove button; keyboard throughout (AC-02.14).
+  - `DateRangePicker`: typed or picked; an end before the start is refused with the reason shown; `calendar="ethiopic"` shows Ethiopian dates while values stay Gregorian `yyyy-MM-dd` (AC-02.15).
+  - `NumberField` and `CurrencyField`: locale-aware; `CurrencyField` takes and gives whole minor units with a currency code; `currencyFractionDigits` (AC-02.16).
+  - `FileDropzone`: refuses a wrong type or size with the reason and keeps nothing; kept files can be removed or replaced (AC-02.18).
+- `@kifiya/ui`, built in the kit (D-021):
+  - `OtpInput`: typing or pasting fills the boxes, digits only, `onComplete` with the full code (AC-02.17).
+  - `Stepper`: current step marked for screen readers, finished steps revisitable, later steps locked (AC-02.19).
+  - `EmptyState` and `Banner` (AC-02.21).
+  - `Form` shows a focused, linked error summary when three or more fields fail; with fewer it focuses the first invalid field (AC-02.20).
+- Docs: Feedback and states page (the three message levels); Forms page gains the new inputs.
+- Dependencies: `react-aria-components` and `@internationalized/date`. `DatePicker` still uses `react-day-picker` until it moves to React Aria in 0.4.
+
+### Changed (tooling)
 
 - `pnpm release` checks before it publishes: a clean tree on `main` identical to GitLab's `main`, one version across the packages, not yet tagged or published, and `GITLAB_NPM_TOKEN` set. It creates and pushes the `vX.Y.Z` tag itself after a successful publish; `--dry-run` tries every step without publishing (D-009).
 

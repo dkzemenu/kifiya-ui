@@ -314,6 +314,34 @@ For `DEFERRED` entries, **Options** is replaced by **Proposed PRODUCT.md diff** 
 - **Resolution:** _(human)_ — option A chosen by the user in session on 2026-10-16.
 - **Resolved:** _(date)_
 
+### D-021 — 0.3: the harder inputs, empty states, banners and an error summary
+
+- **Raised:** 2026-10-16 · **Status:** DEFERRED · **Blocking:** yes (nothing is built until the owner applies the wording)
+- **Context:** Phase 1 of the roadmap in the research report "Modern UI kits for Kifiya". R-02 does not list these components.
+  - **New:** `MultiSelect` (tags you can remove), `DateRangePicker` (optional Ethiopian calendar), `NumberField` and `CurrencyField` (value in whole minor units plus a currency code), `OtpInput`, `FileDropzone`, `Stepper`, `EmptyState`, `Banner`, and an error summary in `Form` when three or more fields fail (the GitHub Primer rule).
+  - **Built on React Aria (D-020):** multi-select, date range, number and currency, drop zone. **Built by hand:** one-time code (React Aria has none) and stepper.
+  - **Not in 0.3:** command menu, tree, data-table bulk actions, decision dialog, money display, timeline, masking, session timeout (roadmap 0.4); renaming tokens to shadcn's names (separate decision).
+- **Proposed PRODUCT.md diff:** handed over as `../kifiya-ui-0.3-product.patch` (tested with `git apply --check`). It adds the components to R-02 and AC-02.14 – AC-02.21.
+- **Affects:** `packages/ui`, `apps/docs`, `packages/mcp` (data picks the new components up), `PRODUCT.md` R-02
+- **Resolution:** _(human)_
+- **Resolved:** _(date)_
+
+### D-022 — the React Aria packages, and the kit then having two date libraries
+
+- **Raised:** 2026-10-16 · **Status:** ASSUMED · **Blocking:** no
+- **Context:** D-020 chose React Aria. Checked on npm on 2026-10-16:
+  - `react-aria-components` 1.22.1, Apache-2.0, updated 2026-10-09, React 16.8 – 19. It brings `react-aria`, `react-stately`, `@internationalized/date` and `@internationalized/string` with it. About 10 MB unpacked, but apps bundle only the parts they import.
+  - `@internationalized/date` 3.12.4, Apache-2.0, updated 2026-10-08: listed directly because the kit's own types use its `CalendarDate` and its Ethiopian calendars.
+  - Version 1.22.1 has everything 0.3 needs: `Select` with `selectionMode="multiple"`, `DateRangePicker`, `NumberField` (Intl currency formatting), `DropZone` and `FileTrigger`, `TagGroup`.
+  - The existing `DatePicker` uses `react-day-picker` and `date-fns`. A React Aria date range picker means two date libraries in the kit until `DatePicker` moves over.
+- **Options:**
+  - A) Add both packages to `@kifiya/ui` as dependencies. Build the date range on React Aria (for the Ethiopian calendar) and move `DatePicker` onto it in 0.4, then drop `react-day-picker`.
+  - B) Add both, but build the date range on `react-day-picker`, which already has a range mode. No Ethiopian calendar.
+- **Recommendation:** A. The Ethiopian calendar is the reason React Aria was chosen; two date libraries is a temporary cost.
+- **Affects:** `packages/ui/package.json`
+- **Resolution:** _(human)_ — option A approved by the user in session on 2026-10-16.
+- **Resolved:** _(date)_
+
 ## Resolved
 
 _(entries move here when a human sets RESOLVED / REJECTED; never delete — this is the audit trail of product decisions)_

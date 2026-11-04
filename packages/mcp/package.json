@@ -1,6 +1,6 @@
 {
   "name": "@kifiya/mcp",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "MCP server that lets coding assistants look up the Kifiya UI kit's components, props, examples and tokens.",
   "type": "module",
   "bin": {
